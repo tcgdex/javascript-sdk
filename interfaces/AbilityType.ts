@@ -3,6 +3,12 @@ export interface AbilityTypeSimple {
 	name: string
 }
 
+export type AbilityTypeSingle = {
+	id: AbilityType
+	name: string
+	cards: string
+}
+
 enum AbilityType {
 	POKEBODY,
 	POKEPOWER,

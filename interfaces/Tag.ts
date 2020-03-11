@@ -1,3 +1,6 @@
+import { List } from "./General"
+import { CardSimple } from "./Card"
+
 enum Tag {
 	BASIC,
 	BASICENERGY,
@@ -29,3 +32,11 @@ export interface TagSimple {
 	id: Tag
 	name: string
 }
+
+export type TagSingle = {
+	id: Tag
+	name: string
+	cards: Array<CardSimple>
+}
+
+export type TagList = List<TagSimple>

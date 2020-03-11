@@ -1,4 +1,5 @@
 import { CardSimple } from "./Card";
+import { List } from "./General";
 
 export type IllustratorSingle = {
 	id: number,
@@ -11,10 +12,7 @@ export interface IllustratorSimple {
 	name: string
 }
 
-export interface IllustratorsList {
-	count: number
-	list: Array<IllustratorSimple>
-}
+export type IllustratorsList = List<IllustratorSimple>
 
 interface Illustrator {
 	id: number

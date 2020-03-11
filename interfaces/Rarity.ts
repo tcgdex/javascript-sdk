@@ -1,3 +1,6 @@
+import { List } from "./General"
+import { CardSimple } from "./Card"
+
 export enum Rarity {
 	Common,
 	Uncommon,
@@ -30,3 +33,11 @@ export interface RaritySimple {
 	id: Rarity
 	name: string
 }
+
+export type RaritySingle = {
+	id: Rarity
+	name: string
+	cards: Array<CardSimple>
+}
+
+export type RarityList = List<RaritySimple>

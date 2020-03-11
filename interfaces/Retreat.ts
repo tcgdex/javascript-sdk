@@ -1,4 +1,5 @@
 import { CardSimple } from "./Card";
+import { List } from "./General";
 
 export type RetreatSimple = number
 
@@ -7,7 +8,4 @@ export interface RetreatSingle {
 	cards: Array<CardSimple>
 }
 
-export interface RetreatList {
-	count: number,
-	list: Array<RetreatSimple>
-}
+export type RetreatList = List<RetreatSimple>
