@@ -4,8 +4,8 @@ import { SetSingle, SetRequest } from './interfaces/Set'
 import { CardSingle } from './interfaces/Card'
 import { ExpansionSingle } from './interfaces/Expansion'
 
-export default class TCGDex {
-	private lang: Langs = "en"
+export default class TCGdex {
+	public lang: Langs = "en"
 
 	public constructor(lang?: Langs) {
 		if (lang) this.lang = lang
@@ -19,7 +19,9 @@ export default class TCGDex {
 		return this.getBaseUrl()
 	}
 
-	public async getCard(id: string, set?: string): Promise<CardSingle> {
+	public async getCard(id: string|number, set: string): Promise<CardSingle>;
+	public async getCard(id: string): Promise<CardSingle>;
+	public async getCard(id: string|number, set?: string): Promise<CardSingle> {
 		try {
 			const txt = set ? `sets/${set}` : "cards"
 			const resp = await fetch(`${this.gbu()}/${txt}/${id}`)
