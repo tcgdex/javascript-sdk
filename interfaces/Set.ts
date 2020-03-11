@@ -36,6 +36,8 @@ export type SetSingle = {
 export type SetSimple = {
 	code: string
 	name: string
+	logo?: string
+	symbol?: string
 	total: number
 }
 

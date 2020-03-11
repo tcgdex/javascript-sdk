@@ -11,6 +11,7 @@ import Set from "./Set";
 
 export interface CardSimple {
 	id: string
+	localId: string|number
 	name: string
 	image: string
 }
