@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-unfetch'
 import { Langs } from './interfaces/Langs'
-import { SetSingle, SetRequest, SetList, SetSimple } from './interfaces/Set'
+import { SetSingle, SetRequest, SetSimple } from './interfaces/Set'
 import { CardSingle } from './interfaces/Card'
 import { ExpansionSingle, ExpansionList } from './interfaces/Expansion'
 
