@@ -14,7 +14,7 @@ export default class TranslationUtil {
 	public static translate(master: "tag",a: Tag, lang: Langs): string|undefined;
 	public static translate(master: "type",a: Type, lang: Langs): string|undefined;
 	public static translate(master: possibilities,a: number, lang: Langs): string|undefined {
-		const trans = require(`./${master}`).default as translations
+		const trans = require(`./translations/${master}`).default as translations
 		const tmp = trans[lang]
 		if (!tmp) return
 		return tmp[a]
