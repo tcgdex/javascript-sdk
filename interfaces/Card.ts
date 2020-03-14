@@ -33,6 +33,14 @@ export interface CardSingle {
 		name: string
 		code: string
 	}
+
+	/**
+	 * Some Pokémons have item like a berry
+	 */
+	item?: {
+		name: LangList<string>
+		effect: LangList<string>
+	}
 	cardTypes?: {
 		/**
 		 * normal card without anything special

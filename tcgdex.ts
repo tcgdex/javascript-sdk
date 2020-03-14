@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-unfetch'
 import { Langs } from './interfaces/Langs'
-import { SetSingle, SetRequest, SetSimple } from './interfaces/Set'
-import { CardSingle } from './interfaces/Card'
+import { SetSingle, SetRequest, SetSimple, SetList } from './interfaces/Set'
+import { CardSingle, CardList, CardSimple } from './interfaces/Card'
 import { ExpansionSingle, ExpansionList } from './interfaces/Expansion'
 
 export default class TCGdex {
@@ -36,7 +36,7 @@ export default class TCGdex {
 		}
 	}
 
-	public async getCards(set?: string) {
+	public async getCards(set?: string): Promise<Array<CardSimple>> {
 		if (set) {
 			try {
 				const setSingle = await this.getSet(set)
@@ -52,7 +52,8 @@ export default class TCGdex {
 				throw new Error("Could not fetch cards")
 			}
 			try {
-				return resp.json()
+				const t: CardList = await resp.json()
+				return t.list
 			} catch (e) {
 				throw e
 			}
@@ -120,7 +121,8 @@ export default class TCGdex {
 					throw new Error("Could not fetch sets")
 				}
 				try {
-					return resp.json()
+					const sets: SetList = await resp.json()
+					return sets.list
 				} catch (e) {
 					throw e
 				}
