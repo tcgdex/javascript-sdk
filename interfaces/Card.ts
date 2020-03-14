@@ -38,8 +38,8 @@ export interface CardSingle {
 	 * Some Pokémons have item like a berry
 	 */
 	item?: {
-		name: LangList<string>
-		effect: LangList<string>
+		name: string
+		effect: string
 	}
 	cardTypes?: {
 		/**
@@ -127,6 +127,11 @@ type Card = {
 
 	// If card is trainer or energy effect is here
 	effect?: LangList<string>
+
+	item?: {
+		name: LangList<string>
+		effect: LangList<string>
+	}
 
 	weaknesses?: Array<{
 		type: Type
