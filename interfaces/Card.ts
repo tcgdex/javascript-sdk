@@ -41,40 +41,11 @@ export interface CardSingle {
 		name: string
 		effect: string
 	}
-	cardTypes?: {
-		/**
-		 * normal card without anything special
-		 *
-		 *
-		 * @type {boolean} consider `undefined` to true
-		 */
-		normal?: boolean
-		/**
-		 * Card which has a holographic background
-		 * but not the picture
-		 *
-		 * @type {boolean} `undefined` === `true`
-		 */
-		reverse?: boolean
-		/**
-		 * Card which has a hologaphic picture
-		 *
-		 * @type {boolean} `undefined` === `false`
-		 */
-		holo?: boolean
-		/**
-		 * Card which can have a `1st ed` icon
-		 *
-		 * only the base expansion should received it
-		 *
-		 * @type {boolean} `undefined` === `false`
-		 */
-		firstEd?: boolean
-	}
 
 	// Pokémon only
 	hp?: number
 	dexId?: number
+	lvl?: number
 	type?: Array<TypeSimple>
 	evolveFrom?: string
 	evolveTo?: Array<string>

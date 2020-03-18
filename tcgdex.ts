@@ -1,8 +1,8 @@
-import fetch from 'isomorphic-unfetch'
 import { Langs } from './interfaces/Langs'
-import { SetSingle, SetRequest, SetSimple, SetList } from './interfaces/Set'
+import { SetSingle, SetSimple, SetList } from './interfaces/Set'
 import { CardSingle, CardList, CardSimple } from './interfaces/Card'
 import { ExpansionSingle, ExpansionList } from './interfaces/Expansion'
+import RequestWrapper from './Request'
 
 export default class TCGdex {
 	public lang: Langs = "en"
@@ -22,114 +22,49 @@ export default class TCGdex {
 	public async getCard(id: string|number, set: string): Promise<CardSingle>;
 	public async getCard(id: string): Promise<CardSingle>;
 	public async getCard(id: string|number, set?: string): Promise<CardSingle> {
-		try {
-			const txt = set ? `sets/${set}` : "cards"
-			const resp = await fetch(`${this.gbu()}/${txt}/${id}/`)
-			if (resp.status !== 200) throw new Error("Card not found")
-			try {
-				return await resp.json()
-			} catch (e) {
-				throw e
-			}
-		} catch (e) {
-			throw e
-		}
+		const txt = set ? `sets/${set}` : "cards"
+		const req = this.rwgr<CardSingle>(`${this.gbu()}/${txt}/${id}/`)
+		return req.get()
 	}
 
 	public async getCards(set?: string): Promise<Array<CardSimple>> {
 		if (set) {
-			try {
-				const setSingle = await this.getSet(set)
-				return setSingle.list
-			} catch (e) {
-				throw e
-			}
+			const setSingle = await this.getSet(set)
+			return setSingle.list
 		}
-		try {
-			console.warn("note: while it's possible to fetch every cards at once it's not recommended as it take much more time than any other requests")
-			const resp = await fetch(`${this.gbu()}/cards/`)
-			if (resp.status !== 200) {
-				throw new Error("Could not fetch cards")
-			}
-			try {
-				const t: CardList = await resp.json()
-				return t.list
-			} catch (e) {
-				throw e
-			}
-		} catch (e) {
-			throw e
-		}
+		console.warn("note: while it's possible to fetch every cards at once it's not recommended as it take much more time than any other requests")
+		const req = this.rwgr<CardList>(`${this.gbu()}/cards/`)
+		const resp = await req.get()
+		return resp.list
 	}
 
 	public async getSet(set: string): Promise<SetSingle> {
-		try {
-			const resp = await fetch(`${this.gbu()}/sets/${set}/`)
-			console.log(resp.status)
-			if (resp.status !== 200) throw new Error("Set not found")
-			try {
-				const setTmp: SetRequest = await resp.json();
-				return Object.assign(setTmp, {releaseDate: new Date(setTmp.releaseDate)}) as SetSingle
-			} catch (e) {
-				throw e
-			}
-		} catch (e) {
-			throw e
-		}
+		const req = this.rwgr<SetSingle>(`${this.gbu()}/sets/${set}/`)
+		const resp = await req.get()
+		return Object.assign(resp, {releaseDate: new Date(resp.releaseDate)}) as SetSingle
 	}
 
 	public async getExpansion(expansion: string): Promise<ExpansionSingle> {
-		try {
-			const resp = await fetch(`${this.gbu()}/expansions/${expansion}/`)
-			if (resp.status !== 200) throw new Error("Expansion not found")
-			try {
-				return await resp.json()
-			} catch (e) {
-				throw e
-			}
-		} catch (e) {
-			throw e
-		}
+		const req = this.rwgr<ExpansionSingle>(`${this.gbu()}/expansions/${expansion}/`)
+		return req.get()
 	}
 
 	public async getExpansions(): Promise<ExpansionList> {
-		try {
-			const resp = await fetch(`${this.gbu()}/expansions/`)
-			if (resp.status !== 200) throw new Error("Could not fetch expansions")
-			try {
-				return await resp.json()
-			} catch (e) {
-				throw e
-			}
-		} catch (e) {
-			throw e
-		}
+		const req = this.rwgr<ExpansionList>(`${this.gbu()}/expansions/`)
+		return req.get()
 	}
 
 	public async getSets(expansion?: string): Promise<Array<SetSimple>> {
 		if (expansion) {
-			try {
-				const expansionSingle = await this.getExpansion(expansion)
-				return expansionSingle.sets
-			} catch (e) {
-				throw e
-			}
-		} else {
-			try {
-				const resp = await fetch(`${this.gbu()}/sets/`)
-				if (resp.status !== 200) {
-					throw new Error("Could not fetch sets")
-				}
-				try {
-					const sets: SetList = await resp.json()
-					return sets.list
-				} catch (e) {
-					throw e
-				}
-
-			} catch (e) {
-				throw e
-			}
+			const expansionSingle = await this.getExpansion(expansion)
+			return expansionSingle.sets
 		}
+		const req = this.rwgr<SetList>(`${this.gbu()}/sets/`)
+		const list = await req.get()
+		return list.list
+	}
+
+	private rwgr<T>(url: string) {
+		return RequestWrapper.getRequest<T>(url)
 	}
 }
