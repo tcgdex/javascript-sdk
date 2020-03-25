@@ -5,14 +5,20 @@ import { ExpansionSingle, ExpansionList } from './interfaces/Expansion'
 import RequestWrapper from './Request'
 
 export default class TCGdex {
-	public lang: Langs = "en"
+	public static defaultLang: Langs = "en"
+	public lang?: Langs
 
 	public constructor(lang?: Langs) {
 		if (lang) this.lang = lang
 	}
 
+	public getLang() {
+		return this.lang || TCGdex.defaultLang
+	}
+
+
 	private getBaseUrl() {
-		return `https://api.tcgdex.net/${this.lang}`
+		return `https://api.tcgdex.net/${this.getLang()}`
 	}
 
 	private gbu() {
