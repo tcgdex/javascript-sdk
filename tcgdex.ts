@@ -18,7 +18,7 @@ export default class TCGdex {
 
 
 	private getBaseUrl() {
-		return `https://api.tcgdex.net/${this.getLang()}`
+		return `https://api.tcgdex.net/v1/${this.getLang()}`
 	}
 
 	private gbu() {
@@ -70,7 +70,7 @@ export default class TCGdex {
 		return list.list
 	}
 
-	private rwgr<T>(url: string) {
+	private rwgr<T = any>(url: string) {
 		return RequestWrapper.getRequest<T>(url)
 	}
 }

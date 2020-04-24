@@ -3,3 +3,4 @@ node_modules
 # Dist files
 *.js
 *.d.ts
+test.ts
