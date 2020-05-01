@@ -2,46 +2,20 @@ import { translations } from "../TranslationUtil"
 
 const translations: translations = {
 	en: [
+		"No rarity",
 		"Common",
 		"unCommon",
 		"Rare",
-
-		"Rare Holo",
-		"Rare Holo EX",
-		"Rare Holo GX",
-		"Rare Holo Lv.X",
-
 		"Rare Ultra",
-		"Rare Prime",
-		"Rare ACE",
-		"Rare BREAK",
-		"Rainbow Rare",
-
-		"LEGEND",
-
-		"V",
-		"VMax"
+		"Ultra Rare",
 	],
 	fr: [
+		"Sans rareté",
 		"Commun",
 		"Non Commun",
 		"Rare",
-
-		"Rare Holo",
-		"Rare Holo EX",
-		"Rare Holo GX",
-		"Rare Holo Lv.X",
-
 		"Rare Ultra",
-		"Rare Prime",
-		"Rare ACE",
-		"Rare BREAK",
-		"Rainbow Rare",
-
-		"LEGEND",
-
-		"V",
-		"VMax"
+		"Ultra Rare",
 	]
 }
 export default translations

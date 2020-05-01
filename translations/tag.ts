@@ -23,7 +23,10 @@ const translations: translations = {
 		"Technical Machine",
 		"Tool",
 		"Pokémon V",
-		"Pokémon VMAX"
+		"Pokémon VMAX",
+		"Prime",
+		"ACE",
+		"Rainbow",
 	],
 	fr: [
 		"Pokémon de base",
@@ -47,7 +50,10 @@ const translations: translations = {
 		"Machine Technique",
 		"Outil",
 		"Pokémon V",
-		"Pokémon VMAX"
+		"Pokémon VMAX",
+		"Prime",
+		"ACE",
+		"Arc en ciel",
 	]
 }
 export default translations

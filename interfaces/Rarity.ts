@@ -2,29 +2,15 @@ import { List } from "./General"
 import { CardSimple } from "./Card"
 
 export enum Rarity {
-	Common,
-	Uncommon,
-	Rare,
+	NONE,
+	COMMON,
+	UNCOMMON,
+	RARE,
 
-	// Rare holo
-	RareHolo,
-	RareHoloEX,
-	RareHoloGX,
-	RareHoloLvX,
+	// Both RAREULTRA and ULTRARARE are the same until I know the correct name
+	RAREULTRA = 4,
+	ULTRARARE = 4
 
-	// Rare other
-	RareUltra,
-	RarePrime,
-	RareACE,
-	RareBREAK,
-	RareRainbow,
-
-	// Other
-	LEGEND,
-
-	// V & Vmax
-	RareV,
-	RareVMAX,
 }
 
 export default Rarity

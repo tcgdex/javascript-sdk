@@ -65,6 +65,21 @@ enum Tag {
 	 * Card is full art (art is not in the frame)
 	 */
 	ISFULLART,
+
+	/**
+	 * PRIME Pokemon
+	 */
+	PRIME,
+
+	/**
+	 * ACE Pokemon
+	 */
+	ACE,
+
+	/**
+	 * Card is "rainbow"
+	 */
+	RAINBOW,
 }
 
 export default Tag
