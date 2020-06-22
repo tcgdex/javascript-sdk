@@ -6,8 +6,8 @@
 	"repository": "https://git.delta-wings.net/tcgdex/javascript-sdk.git",
 	"license": "MIT",
 	"devDependencies": {
-		"@types/node-fetch": "^2.5.4",
-		"typescript": "^3.7.5"
+		"@types/node-fetch": "2.5.5",
+		"typescript": "3.8.3"
 	},
 	"dependencies": {
 		"isomorphic-unfetch": "^3.0.0"
