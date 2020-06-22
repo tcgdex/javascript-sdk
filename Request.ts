@@ -35,7 +35,11 @@ export class Request<T = any> {
 
 		// Fetch Response
 		try {
-			const resp = await fetch(this.url)
+			const resp = await fetch(this.url, {
+				headers: {
+					"Content-Type": "text/plain"	
+				}
+			})
 			if (resp.status !== 200) {
 				throw new Error(`Error request ended with the code (${resp.status})`)
 			}
