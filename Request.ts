@@ -23,7 +23,7 @@ export class Request<T = any> {
 		this.url = url
 	}
 
-	public async get(): Promise<T> {
+	public async get(): Promise<T | undefined> {
 		const now = new Date()
 		if (
 			this.fetched &&
@@ -34,22 +34,17 @@ export class Request<T = any> {
 		}
 
 		// Fetch Response
-		try {
-			const resp = await fetch(this.url, {
-				headers: {
-					"Content-Type": "text/plain"	
-				}
-			})
-			if (resp.status !== 200) {
-				throw new Error(`Error request ended with the code (${resp.status})`)
+		const resp = await fetch(this.url, {
+			headers: {
+				"Content-Type": "text/plain"
 			}
-			const response = await resp.json()
-			this.response = response
-			this.fetched = now
-			return response
-		} catch (e) {
-			console.error(e)
-			throw new Error('An error occured')
+		})
+		if (resp.status !== 200) {
+			return undefined
 		}
+		const response = await resp.json()
+		this.response = response
+		this.fetched = now
+		return response
 	}
 }
