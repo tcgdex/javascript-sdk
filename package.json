@@ -3,7 +3,7 @@
 	"version": "1.6.0",
 	"main": "./tcgdex.js",
 	"types": "./tcgdex.d.ts",
-	"repository": "https://git.delta-wings.net/tcgdex/javascript-sdk.git",
+	"repository": "https://github.com/tcgdex/javascript-sdk.git",
 	"license": "MIT",
 	"devDependencies": {
 		"@types/node-fetch": "2.5.7",
