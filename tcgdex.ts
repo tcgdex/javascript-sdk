@@ -41,7 +41,6 @@ export default class TCGdex {
 			}
 			return setSingle.list
 		}
-		console.warn("note: while it's possible to fetch every cards at once it's not recommended as it take much more time than any other requests")
 		const req = this.rwgr<CardList>(`${this.gbu()}/cards/`)
 		const resp = await req.get()
 		if (!resp) {
