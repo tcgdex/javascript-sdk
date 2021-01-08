@@ -1,8 +1,8 @@
-import { Langs } from './interfaces/Langs'
-import { SetSingle, SetSimple, SetList } from './interfaces/Set'
+import { SetSingle, SetSimple, SetList, SetSingleRaw } from './interfaces/Set'
 import { CardSingle, CardList, CardSimple } from './interfaces/Card'
 import { ExpansionSingle, ExpansionList } from './interfaces/Expansion'
 import RequestWrapper from './Request'
+import { Langs } from './interfaces/LangList'
 
 export default class TCGdex {
 	public static defaultLang: Langs = "en"
@@ -44,9 +44,14 @@ export default class TCGdex {
 		return resp.list
 	}
 
-	public async getSet(set: string): Promise<SetSingle> {
+	public async getSet(set: string, transformDate: false): Promise<SetSingleRaw>
+	public async getSet(set: string, transformDate?: true): Promise<SetSingle>
+	public async getSet(set: string, transformDate?: boolean): Promise<SetSingle | SetSingleRaw> {
 		const req = this.rwgr<SetSingle>(`${this.gbu()}/sets/${set}/`)
 		const resp = await req.get()
+		if (!transformDate) {
+			return resp as SetSingleRaw
+		}
 		return Object.assign(resp, {releaseDate: new Date(resp.releaseDate)}) as SetSingle
 	}
 

@@ -3,34 +3,37 @@ import { List } from "./General";
 import LangList from "./LangList";
 import Expansion from "./Expansion";
 
-
 export type SetRequest = SetSingle
 
+export interface SetSingleRaw extends SetSingle {
+	releaseDate: string
+}
+
 export type SetSingle = {
-    name: string
-    code: string
+	name: string
+	code: string
 
-    expansionCode?: string
-    tcgoCode?: string
+	expansionCode?: string
+	tcgoCode?: string
 
-    cardCount: {
-        total: number
-        official: number
-    }
+	cardCount: {
+		total: number
+		official: number
+	}
 
-    releaseDate: Date|string
+	releaseDate: Date | string
 
-    legal?: {
-        standard: boolean
-        expanded: boolean
-    }
+	legal?: {
+		standard: boolean
+		expanded: boolean
+	}
 
-    images?: {
-        symbol?: string
-        logo?: string
-    }
+	images?: {
+		symbol?: string
+		logo?: string
+	}
 
-    list: Array<CardSimple>
+	list: Array<CardSimple>
 }
 
 export type SetSimple = {
