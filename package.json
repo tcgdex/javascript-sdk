@@ -1,6 +1,6 @@
 {
 	"name": "@tcgdex/sdk",
-	"version": "1.6.0",
+	"version": "1.6.1",
 	"main": "./tcgdex.js",
 	"types": "./tcgdex.d.ts",
 	"repository": "https://github.com/tcgdex/javascript-sdk.git",
