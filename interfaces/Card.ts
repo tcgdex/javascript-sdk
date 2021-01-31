@@ -25,7 +25,7 @@ export interface CardSingle {
 		low: string
 		high?: string
 	}
-	tags: Array<TagSimple>
+	tags?: Array<TagSimple>
 	illustrator?: IllustratorSimple
 	rarity: RaritySimple
 	category: CategorySimple
@@ -89,7 +89,7 @@ type Card = {
 
 	evolveFrom?: LangList<string>
 	evolveTo?: Array<LangList<string>>
-	tags: Array<Tag> // made after
+	tags?: Array<Tag> // made after
 	illustrator?: string
 
 	abilities?: Array<Ability>
