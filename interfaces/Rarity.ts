@@ -9,7 +9,9 @@ export enum Rarity {
 
 	// Both RAREULTRA and ULTRARARE are the same until I know the correct name
 	RAREULTRA = 4,
-	ULTRARARE = 4
+	ULTRARARE = 4,
+
+	AMAZING,
 
 }
 
