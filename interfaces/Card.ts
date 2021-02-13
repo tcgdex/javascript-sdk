@@ -19,19 +19,70 @@ export interface CardSimple {
 export interface CardSingle {
 	// General
 	id: string
-	localId: number|string
+
+	/**
+	 * The Set Card ID
+	 */
+	localId: number | string
+
+	/**
+	 * The card Name
+	 */
 	name: string
+
+	/**
+	 * The Card Picture
+	 * it doesn't contains the ext as it is available as .png, .jpg, .webp (HINT: use .webp then .png then .jpg)
+	 */
 	image?: {
 		low: string
 		high?: string
 	}
+
+	/**
+	 * Card Tags
+	 */
 	tags?: Array<TagSimple>
+
+	/**
+	 * Card illustrator informations
+	 */
 	illustrator?: IllustratorSimple
+
+	/**
+	 * Card Rarity
+	 */
 	rarity: RaritySimple
+
+	/**
+	 * Card Category
+	 */
 	category: CategorySimple
+
+	/**
+	 * Card Set
+	 */
 	set: {
+		/**
+		 * Set Display name
+		 */
 		name: string
+
+		/**
+		 * Set code/id
+		 */
 		code: string
+	}
+
+	/**
+	 * This will be set for each cards
+	 * define all the variants for a specific card
+	 */
+	variants: {
+		normal: boolean
+		reverse: boolean
+		holo: boolean
+		firstEd: boolean
 	}
 
 	/**
@@ -80,7 +131,7 @@ type Card = {
 	// Card informations (from top to bottom of card)
 	name: LangList<string>
 	hp?: number //optionnal because energy/trainer cards might have not any hp
-	type?: Array<Type> // ex for multiple https://api.pokemon.com/us/pokemon-tcg/pokemon-cards/ex-series/ex13/17/
+	type?: Array<Type> // ex for multiple https://www.tcgdex.net/database/ex/ex13/17
 
 	image?: {
 		low: LangList<string>
