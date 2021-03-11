@@ -233,3 +233,10 @@ export interface Card<SetType extends SetResume = SetResume> extends CardResume 
 	energyType?: 'Normal' | // https://www.tcgdex.net/database/ecard/ecard1/160
 	'Special' // https://www.tcgdex.net/database/ecard/ecard1/158
 }
+
+export type StringEndpointList = Array<string>
+
+export interface StringEndpoint {
+	name: string
+	cards: Array<CardResume>
+}
