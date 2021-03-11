@@ -30,17 +30,18 @@ export type CardList = Array<CardResume>
 interface SetResume {
 	id: string
 	name: string
-}
-
-export interface Set extends SetResume {
-	serie: Serie
-	tcgOnline?: string
-	variants?: variants
-
+	logo?: string
+	symbol?: string
 	cardCount: {
 		total: number
 		official: number
 	}
+}
+
+export interface Set extends SetResume {
+	serie: SerieResume
+	tcgOnline?: string
+	variants?: variants
 
 	releaseDate: string
 
