@@ -3,4 +3,5 @@ node_modules
 # Dist files
 *.js
 *.d.ts
+!interfaces.d.ts
 test.ts

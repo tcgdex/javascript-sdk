@@ -1,1 +1,6 @@
-test.js
+.editorconfig
+.gitignore
+.npmignore
+tsconfig.json
+*.ts
+yarn.lock

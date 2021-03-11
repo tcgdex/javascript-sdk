@@ -1,5 +1,6 @@
 {
 	"include": ["**/*.ts"],
+	"exclude": ["translations"],
 	"compilerOptions": {
 	  /* Basic Options */
 	  // "incremental": true,                   /* Enable incremental compilation */

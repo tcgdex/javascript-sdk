@@ -1,16 +1,10 @@
-import { SetSingle, SetSimple, SetList, SetSingleRaw } from './interfaces/Set'
-import { CardSingle, CardList, CardSimple } from './interfaces/Card'
-import { ExpansionSingle, ExpansionList } from './interfaces/Expansion'
 import RequestWrapper from './Request'
-import { Langs } from './interfaces/LangList'
+import { Serie, Set, Card, CardResume, SerieList, SetList, SupportedLanguages } from './interfaces'
 
 export default class TCGdex {
-	public static defaultLang: Langs = "en"
-	public lang?: Langs
+	public static defaultLang: SupportedLanguages = "en"
 
-	public constructor(lang?: Langs) {
-		if (lang) this.lang = lang
-	}
+	public constructor(public lang?: SupportedLanguages) {}
 
 	public getLang() {
 		return this.lang || TCGdex.defaultLang
@@ -18,78 +12,73 @@ export default class TCGdex {
 
 
 	private getBaseUrl() {
-		return `https://api.tcgdex.net/v1/${this.getLang()}`
+		return `https://api.tcgdex.net/v2/${this.getLang()}`
 	}
 
 	private gbu() {
 		return this.getBaseUrl()
 	}
 
-	public async getCard(id: string|number, set: string): Promise<CardSingle | undefined>
-	public async getCard(id: string): Promise<CardSingle | undefined>
-	public async getCard(id: string|number, set?: string): Promise<CardSingle | undefined> {
+	public async getCard(id: string|number, full: true, set?: string): Promise<Card<Set> | undefined>
+	// @ts-expect-error Temporary while building it in the compiler
+	public async getCard(id: string|number, full?: boolean, set?: string): Promise<Card | undefined> {
 		const txt = set ? `sets/${set}` : "cards"
-		const req = this.rwgr<CardSingle>(`${this.gbu()}/${txt}/${id}/`)
+		const req = this.rwgr<Card>(`${this.gbu()}/${txt}/${id}/`)
 		return req.get()
 	}
 
-	public async getCards(set?: string): Promise<Array<CardSimple> | undefined> {
+	public async getCards(set?: string): Promise<Array<CardResume> | undefined> {
 		if (set) {
 			const setSingle = await this.getSet(set)
 			if (!setSingle) {
 				return undefined
 			}
-			return setSingle.list
+			return setSingle.cards
 		}
-		const req = this.rwgr<CardList>(`${this.gbu()}/cards/`)
+		const req = this.rwgr<Array<CardResume>>(`/cards/`)
 		const resp = await req.get()
 		if (!resp) {
 			return undefined
 		}
-		return resp.list
+		return resp
 	}
 
-	public async getSet(set: string, transformDate: false): Promise<SetSingleRaw | undefined>
-	public async getSet(set: string, transformDate?: true): Promise<SetSingle | undefined>
-	public async getSet(set: string, transformDate?: boolean): Promise<SetSingle | SetSingleRaw | undefined> {
-		const req = this.rwgr<SetSingle>(`${this.gbu()}/sets/${set}/`)
+	public async getSet(set: string): Promise<Set | undefined> {
+		const req = this.rwgr<Set>(`/sets/${set}/`)
 		const resp = await req.get()
 		if (!resp) {
 			return undefined
 		}
-		if (!transformDate) {
-			return resp as SetSingleRaw
-		}
-		return Object.assign(resp, {releaseDate: new Date(resp.releaseDate)}) as SetSingle
+		return resp
 	}
 
-	public async getExpansion(expansion: string): Promise<ExpansionSingle | undefined> {
-		const req = this.rwgr<ExpansionSingle>(`${this.gbu()}/expansions/${expansion}/`)
+	public async getSerie(expansion: string): Promise<Serie | undefined> {
+		const req = this.rwgr<Serie>(`/expansions/${expansion}/`)
 		return req.get()
 	}
 
-	public async getExpansions(): Promise<ExpansionList | undefined> {
-		const req = this.rwgr<ExpansionList>(`${this.gbu()}/expansions/`)
+	public async getSeries(): Promise<SerieList | undefined> {
+		const req = this.rwgr<SerieList>(`/expansions/`)
 		return req.get()
 	}
 
-	public async getSets(expansion?: string): Promise<Array<SetSimple> | undefined> {
+	public async getSets(expansion?: string): Promise<SetList | undefined> {
 		if (expansion) {
-			const expansionSingle = await this.getExpansion(expansion)
+			const expansionSingle = await this.getSerie(expansion)
 			if (!expansionSingle) {
 				return undefined
 			}
 			return expansionSingle.sets
 		}
-		const req = this.rwgr<SetList>(`${this.gbu()}/sets/`)
+		const req = this.rwgr<SetList>(`/sets/`)
 		const list = await req.get()
 		if (!list) {
 			return undefined
 		}
-		return list.list
+		return list
 	}
 
 	private rwgr<T = any>(url: string) {
-		return RequestWrapper.getRequest<T>(url)
+		return RequestWrapper.getRequest<T>(`${this.gbu()}${url}`)
 	}
 }
