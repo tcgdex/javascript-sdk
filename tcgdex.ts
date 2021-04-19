@@ -1,5 +1,6 @@
 import RequestWrapper from './Request'
 import { Serie, Set, Card, CardResume, SerieList, SetList, SupportedLanguages } from './interfaces'
+export * from './interfaces'
 
 export default class TCGdex {
 	public static defaultLang: SupportedLanguages = "en"
