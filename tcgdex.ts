@@ -53,12 +53,12 @@ export default class TCGdex {
 	}
 
 	public async getSerie(expansion: string): Promise<Serie | undefined> {
-		const req = this.rwgr<Serie>(`/expansions/${expansion}/`)
+		const req = this.rwgr<Serie>(`/series/${expansion}/`)
 		return req.get()
 	}
 
 	public async getSeries(): Promise<SerieList | undefined> {
-		const req = this.rwgr<SerieList>(`/expansions/`)
+		const req = this.rwgr<SerieList>(`/series/`)
 		return req.get()
 	}
 
