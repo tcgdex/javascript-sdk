@@ -2,7 +2,7 @@
 	"name": "@tcgdex/sdk",
 	"version": "2.0.0-beta",
 	"main": "./tcgdex.js",
-	"types": "./tcgdex.d.ts",
+	"types": "./main.d.ts",
 	"repository": "https://github.com/tcgdex/javascript-sdk.git",
 	"license": "MIT",
 	"devDependencies": {

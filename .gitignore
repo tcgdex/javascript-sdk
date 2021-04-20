@@ -4,4 +4,5 @@ node_modules
 *.js
 *.d.ts
 !interfaces.d.ts
+!main.d.ts
 test.ts
