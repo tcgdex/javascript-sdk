@@ -10,26 +10,18 @@ export default class TCGdex {
 		return this.lang || TCGdex.defaultLang
 	}
 
-
 	private getBaseUrl() {
 		return `https://api.tcgdex.net/v2/${this.getLang()}`
 	}
 
-	private gbu() {
-		return this.getBaseUrl()
+	public async fetchCard(id: string | number, set?: string): Promise<Card | undefined> {
+		const path = `/${set ? `sets/${set}` : 'cards'}/${id}/`
+		return this.rwgr<Card>(path).get()
 	}
 
-	public async getCard(id: string|number, full: true, set?: string): Promise<Card<Set> | undefined>
-	// @ts-expect-error Temporary while building it in the compiler
-	public async getCard(id: string|number, full?: boolean, set?: string): Promise<Card | undefined> {
-		const txt = set ? `sets/${set}` : "cards"
-		const req = this.rwgr<Card>(`${this.gbu()}/${txt}/${id}/`)
-		return req.get()
-	}
-
-	public async getCards(set?: string): Promise<Array<CardResume> | undefined> {
+	public async fetchCards(set?: string): Promise<Array<CardResume> | undefined> {
 		if (set) {
-			const setSingle = await this.getSet(set)
+			const setSingle = await this.fetchSet(set)
 			if (!setSingle) {
 				return undefined
 			}
@@ -43,7 +35,7 @@ export default class TCGdex {
 		return resp
 	}
 
-	public async getSet(set: string): Promise<Set | undefined> {
+	public async fetchSet(set: string): Promise<Set | undefined> {
 		const req = this.rwgr<Set>(`/sets/${set}/`)
 		const resp = await req.get()
 		if (!resp) {
@@ -52,19 +44,19 @@ export default class TCGdex {
 		return resp
 	}
 
-	public async getSerie(expansion: string): Promise<Serie | undefined> {
+	public async fetchSerie(expansion: string): Promise<Serie | undefined> {
 		const req = this.rwgr<Serie>(`/series/${expansion}/`)
 		return req.get()
 	}
 
-	public async getSeries(): Promise<SerieList | undefined> {
+	public async fetchSeries(): Promise<SerieList | undefined> {
 		const req = this.rwgr<SerieList>(`/series/`)
 		return req.get()
 	}
 
-	public async getSets(expansion?: string): Promise<SetList | undefined> {
+	public async fetchSets(expansion?: string): Promise<SetList | undefined> {
 		if (expansion) {
-			const expansionSingle = await this.getSerie(expansion)
+			const expansionSingle = await this.fetchSerie(expansion)
 			if (!expansionSingle) {
 				return undefined
 			}
@@ -79,6 +71,6 @@ export default class TCGdex {
 	}
 
 	private rwgr<T = any>(url: string) {
-		return RequestWrapper.getRequest<T>(`${this.gbu()}${url}`)
+		return RequestWrapper.getRequest<T>(`${this.getBaseUrl()}${url}`)
 	}
 }
