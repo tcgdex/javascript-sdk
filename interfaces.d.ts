@@ -33,8 +33,14 @@ interface SetResume {
 	logo?: string
 	symbol?: string
 	cardCount: {
-		total: number
-		official: number
+		/**
+		 * total of number of cards
+		 */
+		 total: number
+		 /**
+		  * number of cards officialy (on the bottom of each cards)
+		  */
+		 official: number
 	}
 }
 
@@ -48,6 +54,33 @@ export interface Set extends SetResume {
 	legal?: {
 		standard: boolean
 		expanded: boolean
+	}
+
+	cardCount: {
+		/**
+		 * total of number of cards
+		 */
+		total: number
+		/**
+		 * number of cards officialy (on the bottom of each cards)
+		 */
+		official: number
+		/**
+		 * number of cards having a normal version
+		 */
+		normal: number
+		/**
+		 * number of cards having an reverse version
+		 */
+		reverse: number
+		/**
+		 * number of cards having an holo version
+		 */
+		holo: number
+		/**
+		 * Number of possible cards
+		 */
+		firstEd?: number
 	}
 
 	cards: CardList
