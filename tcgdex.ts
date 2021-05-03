@@ -15,8 +15,8 @@ export default class TCGdex {
 	}
 
 	public async fetchCard(id: string | number, set?: string): Promise<Card | undefined> {
-		const path = `/${set ? `sets/${set}` : 'cards'}/${id}/`
-		return this.rwgr<Card>(path).get()
+		const path = set ? ['sets', set] : ['cards']
+		return this.rwgr<Card>(...path, id).get()
 	}
 
 	public async fetchCards(set?: string): Promise<Array<CardResume> | undefined> {
@@ -27,7 +27,7 @@ export default class TCGdex {
 			}
 			return setSingle.cards
 		}
-		const req = this.rwgr<Array<CardResume>>(`/cards/`)
+		const req = this.rwgr<Array<CardResume>>('cards')
 		const resp = await req.get()
 		if (!resp) {
 			return undefined
@@ -36,7 +36,7 @@ export default class TCGdex {
 	}
 
 	public async fetchSet(set: string): Promise<Set | undefined> {
-		const req = this.rwgr<Set>(`/sets/${set}/`)
+		const req = this.rwgr<Set>('sets', set)
 		const resp = await req.get()
 		if (!resp) {
 			return undefined
@@ -45,12 +45,12 @@ export default class TCGdex {
 	}
 
 	public async fetchSerie(expansion: string): Promise<Serie | undefined> {
-		const req = this.rwgr<Serie>(`/series/${expansion}/`)
+		const req = this.rwgr<Serie>('series', expansion)
 		return req.get()
 	}
 
 	public async fetchSeries(): Promise<SerieList | undefined> {
-		const req = this.rwgr<SerieList>(`/series/`)
+		const req = this.rwgr<SerieList>('series')
 		return req.get()
 	}
 
@@ -62,7 +62,7 @@ export default class TCGdex {
 			}
 			return expansionSingle.sets
 		}
-		const req = this.rwgr<SetList>(`/sets/`)
+		const req = this.rwgr<SetList>('sets')
 		const list = await req.get()
 		if (!list) {
 			return undefined
@@ -70,7 +70,7 @@ export default class TCGdex {
 		return list
 	}
 
-	private rwgr<T = any>(url: string) {
-		return RequestWrapper.getRequest<T>(`${this.getBaseUrl()}${url}`)
+	private rwgr<T = any>(...url: Array<string | number>) {
+		return RequestWrapper.getRequest<T>(`${this.getBaseUrl()}/${url.map((v) => encodeURI(v.toString())).join('/')}`)
 	}
 }
