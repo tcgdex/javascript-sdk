@@ -71,6 +71,9 @@ export default class TCGdex {
 	}
 
 	private rwgr<T = any>(...url: Array<string | number>) {
-		return RequestWrapper.getRequest<T>(`${this.getBaseUrl()}/${url.map((v) => encodeURI(v.toString())).join('/')}`)
+		return RequestWrapper.getRequest<T>(`${this.getBaseUrl()}/${url.map((v) => encodeURI(
+			// Normalize URL
+			v.toString().replace('?', '%3F').normalize('NFC').replace(/["'\u0300-\u036f]/g, "")
+			)).join('/')}`)
 	}
 }
