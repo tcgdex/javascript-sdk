@@ -256,7 +256,7 @@ export interface Card<SetType extends SetResume = SetResume> extends CardResume 
 	/**
 	 * Define the rotation mark on cards >= Sword & Shield
 	 */
-	rotationMark?: string
+	 regulationMark?: string
 }
 
 export type StringEndpointList = Array<string>
