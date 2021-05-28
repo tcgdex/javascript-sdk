@@ -18,11 +18,6 @@ interface variants {
 	firstEdition?: boolean
 }
 
-export type Types = 'Colorless' | 'Darkness' | 'Dragon' |
-'Fairy' | 'Fightning' | 'Fire' |
-'Grass' | 'Lightning' | 'Metal' |
-'Psychic' | 'Water'
-
 export type SetList = Array<SetResume>
 export type SerieList = Array<SerieResume>
 export type CardList = Array<CardResume>
@@ -114,7 +109,7 @@ export interface Card<SetType extends SetResume = SetResume> extends CardResume 
 	 * - Ultra Rare
 	 * - Secret Rare
 	 */
-	rarity: 'None' | 'Common'| 'Uncommon' | 'Rare' | 'Ultra Rare' | 'Secret Rare'
+	rarity: string
 
 	/**
 	 * Card Category
@@ -123,7 +118,7 @@ export interface Card<SetType extends SetResume = SetResume> extends CardResume 
 	 * - Trainer
 	 * - Energy
 	 */
-	category: 'Pokemon' | 'Trainer' | 'Energy'
+	category: string
 
 	/**
 	 * Card Variants (Override Set Variants)
@@ -152,7 +147,7 @@ export interface Card<SetType extends SetResume = SetResume> extends CardResume 
 	/**
 	 * Pokemon Types
 	 */
-	types?: Array<Types> // ex for multiple https://www.tcgdex.net/database/ex/ex13/17
+	types?: Array<string> // ex for multiple https://www.tcgdex.net/database/ex/ex13/17
 
 	/**
 	 * Pokemon Sub Evolution
@@ -188,7 +183,7 @@ export interface Card<SetType extends SetResume = SetResume> extends CardResume 
 	 * - Stage2 https://www.tcgdex.net/database/xy/xy9/3
 	 * - VMAX https://www.tcgdex.net/database/swsh/swsh1/50
 	 */
-	stage?: 'Basic' | 'BREAK' | 'LEVEL-UP' | 'MEGA' | 'RESTORED' | 'Stage1' | 'Stage2' | 'VMAX'
+	stage?: string
 
 	/**
 	 * Card Suffix
@@ -201,7 +196,7 @@ export interface Card<SetType extends SetResume = SetResume> extends CardResume 
 	 * - SP https://www.tcgdex.net/database/pl/pl1/7
 	 * - TAG TEAM-GX https://www.tcgdex.net/database/sm/sm12/226
 	 */
-	suffix?: 'EX' | 'GX' | 'V' | 'Legend' | 'Prime' | 'SP' | 'TAG TEAM-GX'
+	suffix?: string
 
 	/**
 	 * Pokemon Held Item
@@ -219,7 +214,7 @@ export interface Card<SetType extends SetResume = SetResume> extends CardResume 
 	 * multi abilities ex https://www.tcgdex.net/database/ex/ex15/10
 	 */
 	abilities?: Array<{
-		type: 'Pokemon Power' | 'Poke-BODY' | 'Poke-POWER' | 'Ability' | 'Ancient Trait'
+		type: string
 		name: string
 		effect: string
 	}>
@@ -228,7 +223,7 @@ export interface Card<SetType extends SetResume = SetResume> extends CardResume 
 	 * Pokemon Attacks
 	 */
 	attacks?: Array<{
-		cost?: Array<Types>
+		cost?: Array<string>
 		name: string
 		effect?: string
 		damage?: string | number
@@ -238,12 +233,12 @@ export interface Card<SetType extends SetResume = SetResume> extends CardResume 
 	 * Pokemon Weaknesses
 	 */
 	weaknesses?: Array<{
-		type: Types
+		type: string
 		value?: string
 	}>
 
 	resistances?: Array<{
-		type: Types
+		type: string
 		value?: string
 	}>
 
@@ -253,18 +248,10 @@ export interface Card<SetType extends SetResume = SetResume> extends CardResume 
 	effect?: string
 
 	// Trainer Only
-	trainerType?: 'Supporter' | // https://www.tcgdex.net/database/ex/ex7/83
-	'Item' | // https://www.tcgdex.net/database/ex/ex7/89
-	'Stadium' | // https://www.tcgdex.net/database/ex/ex7/87
-	'Tool' | // https://www.tcgdex.net/database/neo/neo1/93
-	'Ace Spec' | // https://www.tcgdex.net/database/bw/bw7/139
-	'Technical Machine' | // https://www.tcgdex.net/database/ecard/ecard1/144
-	'Goldenred Game Corner' | // https://www.tcgdex.net/database/neo/neo1/83
-	'Rocket\'s Secret Machine' // https://www.tcgdex.net/database/ex/ex7/84
+	trainerType?: string
 
 	// Energy Only
-	energyType?: 'Normal' | // https://www.tcgdex.net/database/ecard/ecard1/160
-	'Special' // https://www.tcgdex.net/database/ecard/ecard1/158
+	energyType?: string
 
 	/**
 	 * Define the rotation mark on cards >= Sword & Shield
