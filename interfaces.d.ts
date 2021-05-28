@@ -265,6 +265,11 @@ export interface Card<SetType extends SetResume = SetResume> extends CardResume 
 	// Energy Only
 	energyType?: 'Normal' | // https://www.tcgdex.net/database/ecard/ecard1/160
 	'Special' // https://www.tcgdex.net/database/ecard/ecard1/158
+
+	/**
+	 * Define the rotation mark on cards >= Sword & Shield
+	 */
+	rotationMark?: string
 }
 
 export type StringEndpointList = Array<string>
