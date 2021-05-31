@@ -1,4 +1,4 @@
-# TCGdex Javacript SDK
+# TCGdex JavaScript/TypeScript SDK
 
 This is the SDK used to communicate with the Open source [TCGdex API](https://www.github.com/tcgdex/cards-database)
 
