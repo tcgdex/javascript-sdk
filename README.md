@@ -1,14 +1,14 @@
 # TCGdex Javacript SDK
 
-## Install
+This is the SDK used to communicate with the Open source [TCGdex API](https://www.github.com/tcgdex/cards-database)
 
-### Yarn/npm
+Full API/SDK documentation in progress at https://www.tcgdex.net/docs
+
+## Install
 
 ```bash
 yarn add @tcgdex/sdk
-```
-or with npm
-```bash
+# or
 npm install @tcgdex/sdk
 ```
 
@@ -18,27 +18,33 @@ _Note: a complete documentation is in progress_
 
 ```javascript
 import TCGdex from '@tcgdex/sdk'
-import TranslationUtil from '@tcgdex/sdk/TranslationUtil'
-import Tag from '@tcgdex/sdk/interfaces/Tag'
 
-// init the class
-const tcgdex = new TCGdex("en") // Lang code (Optionnal) (See TranslationUtil.ts line 3)
+// initialize the SDK
+const tcgdex = new TCGdex('en') // Lang code (Optionnal) (See interfaces.d.ts line 1 for supported languages)
 
-// change lang
-tcgdex.lang = "fr"
+// if you need to change the language
+tcgdex.lang = 'fr'
 
-// get Card object wih global id
-await tcgdex.getCard("base1-1")
+// get a Card using its global ID
+await tcgdex.fetch('cards', 'base1-1')
 
-// get Card object with local id and set
-await tcgdex.getCard(1, "base1")
+// fetch a Card using it's local id and set name/ID
+await tcgdex.fetch('sets', 'Base Set', 1)
 
-// get Set informations
-await tcgdex.getSet("base1")
+// fetch a Set's informations using the set's name/ID
+await tcgdex.fetch('sets', 'Sword & Shield')
 
-// get Expansion
-await tcgdex.getExpansion("base")
+// Fetch a serie using the serie's name/ID
+await tcgdex.fetch('series', 'Black & White')
 
-// Translate information from code to the lang
-TranslationUtil.translate("tag", Tag.STAGE2, "en")
+// Fetch cards using other endpoints
+/**
+ * categories => the the different cards categories
+ * hp => fetch the different cards possible HPs
+ * illustrators => fetch all the cards illustrators
+ * rarities => fetch the cards rarities
+ * retreats => fetch the cards using the retreat count
+ * types => fetch the cards using the Pokémon type(s)
+ **/
+await tcgdex.fetch('categories')
 ```
