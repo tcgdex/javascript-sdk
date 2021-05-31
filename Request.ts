@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-unfetch'
-import pkg from './package.json'
+import { version, name } from './package.json'
 
 export default class RequestWrapper {
 	private static cache: Array<Request<any>> = []
@@ -38,7 +38,7 @@ export class Request<T = any> {
 		// Fetch Response
 		const resp = await fetch(this.url, {
 			headers: {
-				'user-agent': `${pkg.name}/${pkg.version}`
+				'user-agent': `${name}/${version}`
 			}
 		})
 		if (resp.status !== 200) {
