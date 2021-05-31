@@ -131,6 +131,13 @@ export default class TCGdex {
 	 * @param endpoint_1 {string} Fetch the possible values to use depending on the endpoint
 	 */
 	public async fetch(endpoint: 'hp' | 'retreats' | 'categories' | 'illustrators' | 'rarities' | 'types'): Promise<Array<string> | undefined>
+	/**
+	 * Fetch The differents endpoints depending on the first argument
+	 * @param endpoint_0 {'hp' | 'retreats' | 'categories' | 'illustrators' | 'rarities' | 'types'}
+	 * Possible value 'cards' | 'categories' | 'hp' | 'illustrators' | 'rarities' | 'retreats' | 'series' | 'sets' | 'types'
+	 * @param endpoint_1 {string} (Optionnal) some details to go from the index file to the item file (mostly the ID/name)
+	 * @param endpoint_2 {string} (Optionnal) only for sets the card local ID to fetch the card through the set
+	 */
 	public async fetch(...endpoint: Array<Endpoint | string>): Promise<any | undefined> {
 		if (endpoint.length === 0) {
 			throw new Error(`endpoint to fetch is empty!`)
