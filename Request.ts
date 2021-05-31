@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-unfetch'
+import pkg from './package.json'
 
 export default class RequestWrapper {
 	private static cache: Array<Request<any>> = []
@@ -15,16 +16,17 @@ export default class RequestWrapper {
 
 export class Request<T = any> {
 	public static ttl = 1000 * 60 * 60 // 1 hour
+
 	private response?: T
 	private fetched?: Date
-	public url: string // url is public for quick url test
 
-	public constructor(url: string) {
-		this.url = url
-	}
+	public constructor(
+		public url: string // url is public for quick url test
+	) {}
 
 	public async get(): Promise<T | undefined> {
 		const now = new Date()
+		// if reponse was already fetched and TTL was not passed
 		if (
 			this.fetched &&
 			this.response &&
@@ -36,15 +38,14 @@ export class Request<T = any> {
 		// Fetch Response
 		const resp = await fetch(this.url, {
 			headers: {
-				"Content-Type": "text/plain"
+				'user-agent': `${pkg.name}/${pkg.version}`
 			}
 		})
 		if (resp.status !== 200) {
 			return undefined
 		}
-		const response = await resp.json()
-		this.response = response
+		this.response = await resp.json()
 		this.fetched = now
-		return response
+		return this.response
 	}
 }
