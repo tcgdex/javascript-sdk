@@ -46,8 +46,21 @@ export interface Set extends SetResume {
 
 	releaseDate: string
 
-	legal?: {
+	/**
+	 * Designate if the set is usable in tournaments
+	 *
+	 * Note: this is specific to the set and if a
+	 * card is banned from the set it will still be true
+	 */
+	legal: {
+		/**
+		 * Ability to play in standard tournaments
+		 */
 		standard: boolean
+
+		/**
+		 * Ability to play in expanded tournaments
+		 */
 		expanded: boolean
 	}
 
@@ -257,6 +270,23 @@ export interface Card<SetType extends SetResume = SetResume> extends CardResume 
 	 * Define the rotation mark on cards >= Sword & Shield
 	 */
 	regulationMark?: string
+
+	/**
+	 * Card ability to be played in official tournaments
+	 *
+	 * Note: all cards are avaialable to play in unlimited tournaments
+	 */
+	legal: {
+		/**
+		 * Ability to play in standard tournaments
+		 */
+		standard: boolean
+
+		/**
+		 * Ability to play in expanded tournaments
+		 */
+		expanded: boolean
+	}
 }
 
 export type StringEndpointList = Array<string>
