@@ -6,7 +6,6 @@ const ENDPOINTS: Array<Endpoint> = ['cards', 'categories', 'hp', 'illustrators',
 const BASE_URL = 'https://api.tcgdex.net/v2'
 export default class TCGdex {
 
-
 	public static fetch: typeof fetch
 
 	public static readonly VERSION = "2.2.0"
