@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## 2.3.0 - 2021-06-22
+
+### Added
+
+- Browser specialized build
+- [#9](https://github.com/tcgdex/javascript-sdk/pull/9) Build/Unit/ESLint tests and coverage with Codecov using Github Action
+
+### Changed
+
+- [#10](https://github.com/tcgdex/javascript-sdk/pull/10) Simplified Request/Cache manager
+
 ## [2.2.0] - 2021-06-19
 
 ### Added
@@ -54,10 +65,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Typing for the new SDK
 - Functions now use `fetch` instead of `get` in their names
 - URL Normalization is now done by the SDK
-
-### Fixed
-
-- `getSerie(s)` now point to the correct endpoint
 
 ### Removed
 
@@ -186,8 +193,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Constructor arg support for multiple langs
 - TranslationUtil to go from the SDK value to a text value
 
-[Unreleased]: https://github.com/tcgdex/javascript-sdk/compare/v2.1.1...HEAD
+[Unreleased]: https://github.com/tcgdex/javascript-sdk/compare/v2.3.0...HEAD
 
+[2.3.0]: https://github.com/tcgdex/javascript-sdk/releases/tag/v2.3.0
+[2.2.0]: https://github.com/tcgdex/javascript-sdk/releases/tag/v2.2.0
 [2.1.1]: https://github.com/tcgdex/javascript-sdk/releases/tag/v2.1.1
 [2.1.0]: https://github.com/tcgdex/javascript-sdk/releases/tag/v2.1.0
 [2.0.2-2.0.3]: https://github.com/tcgdex/javascript-sdk/releases/tag/v2.0.3
