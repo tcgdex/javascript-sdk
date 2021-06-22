@@ -179,7 +179,7 @@ export default class TCGdex {
 				// eslint-disable-next-line no-misleading-character-class
 				.replace(/["'\u0300-\u036f]/gu, '')
 		)).join('/')
-		return RequestWrapper.getRequest<T>(`${BASE_URL}/${this.getLang()}/${path}`).get()
+		return RequestWrapper.fetch<T>(`${BASE_URL}/${this.getLang()}/${path}`)
 	}
 
 }
