@@ -2,7 +2,7 @@ export type SupportedLanguages = 'en' | 'fr'
 
 export type Languages<T = string> = Partial<Record<SupportedLanguages, T>>
 
-interface SerieResume {
+export interface SerieResume {
 	id: string
 	name: string
 }
@@ -22,7 +22,7 @@ export type SetList = Array<SetResume>
 export type SerieList = Array<SerieResume>
 export type CardList = Array<CardResume>
 
-interface SetResume {
+export interface SetResume {
 	id: string
 	name: string
 	logo?: string
@@ -94,7 +94,7 @@ export interface Set extends SetResume {
 	cards: CardList
 }
 
-interface CardResume {
+export interface CardResume {
 	id: string
 	localId: string
 

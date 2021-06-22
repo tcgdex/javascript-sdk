@@ -1,8 +1,6 @@
+# Dev Files
 node_modules
+test.ts
 
 # Dist files
-*.js
-*.d.ts
-!interfaces.d.ts
-!main.d.ts
-test.ts
+dist

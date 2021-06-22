@@ -1,5 +1,4 @@
-import fetch from 'isomorphic-unfetch'
-import { version, name } from './package.json'
+import TCGdex from './tcgdex'
 
 export default class RequestWrapper {
 	private static cache: Array<Request<any>> = []
@@ -36,9 +35,10 @@ export class Request<T = any> {
 		}
 
 		// Fetch Response
-		const resp = await fetch(this.url, {
+		const unfetch = TCGdex.fetch
+		const resp = await unfetch(this.url, {
 			headers: {
-				'user-agent': `${name}/${version}`
+				'user-agent': `@tcgdex/javascript-sdk/${TCGdex.VERSION}`
 			}
 		})
 		if (resp.status !== 200) {

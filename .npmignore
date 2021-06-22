@@ -1,8 +1,8 @@
+src
 .editorconfig
 .gitignore
 .npmignore
-tsconfig.json
-*.ts
+webpack.config.js
+tsconfig.*
 yarn.lock
-test.js
-test.d.ts
+CHANGELOG.md

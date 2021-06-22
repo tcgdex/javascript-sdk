@@ -1,12 +1,16 @@
 import RequestWrapper from './Request'
 import { Serie, Set, Card, CardResume, SerieList, SetList, SupportedLanguages, StringEndpoint } from './interfaces'
-
 type Endpoint = 'cards' | 'categories' | 'hp' | 'illustrators' | 'rarities' | 'retreats' | 'series' | 'sets' | 'types'
 
 const ENDPOINTS: Array<Endpoint> = ['cards', 'categories', 'hp', 'illustrators', 'rarities', 'retreats', 'series', 'sets', 'types']
 const BASE_URL = 'https://api.tcgdex.net/v2'
-
 export default class TCGdex {
+
+
+	public static fetch: typeof fetch
+
+	public static readonly VERSION = "2.2.0"
+
 	/**
 	 * @deprecated to change the lang use `this.lang`
 	 */
@@ -169,3 +173,5 @@ export default class TCGdex {
 		return RequestWrapper.getRequest<T>(`${BASE_URL}/${this.getLang()}/${path}`).get()
 	}
 }
+
+export * from './interfaces'
