@@ -6,6 +6,9 @@
 	"repository": "https://github.com/tcgdex/javascript-sdk.git",
 	"license": "MIT",
 	"devDependencies": {
+		"@babel/core": "^7.14.6",
+		"@babel/preset-env": "^7.14.7",
+		"@babel/preset-typescript": "^7.14.5",
 		"@types/node-fetch": "^2.5.10",
 		"@typescript-eslint/eslint-plugin": "^4.28.0",
 		"@typescript-eslint/parser": "^4.28.0",
@@ -29,7 +32,9 @@
 		"build:cjs": "tsc --project tsconfig.json",
 		"build:es2015": "tsc --project tsconfig.es2015.json",
 		"build:browser": "wp --config webpack.config.js",
-		"prepublishOnly": "yarn build"
+		"prepublishOnly": "yarn build",
+		"lint": "eslint",
+		"test": "jest --coverage"
 	},
 	"files": [
 		"dist"

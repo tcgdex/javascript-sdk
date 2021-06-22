@@ -1,6 +1,4 @@
 dist/
 src/tcgdex.browser.ts
 __tests__
-.eslintrc.js
-webpack.config.js
-tsconfig.json
+*.js
