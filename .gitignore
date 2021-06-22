@@ -1,6 +1,7 @@
 # Dev Files
 node_modules
 test.ts
+coverage
 
 # Dist files
 dist

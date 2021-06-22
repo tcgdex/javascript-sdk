@@ -8,16 +8,16 @@ export default class TCGdex {
 
 	public static fetch: typeof fetch
 
-	public static readonly VERSION = "2.2.0"
+	public static readonly VERSION = '2.2.0'
 
 	/**
 	 * @deprecated to change the lang use `this.lang`
 	 */
-	public static defaultLang: SupportedLanguages = "en"
+	public static defaultLang: SupportedLanguages = 'en'
 
 	public constructor(public lang?: SupportedLanguages) {}
 
-	public getLang() {
+	public getLang(): SupportedLanguages {
 		return this.lang ?? TCGdex.defaultLang ?? 'en'
 	}
 
@@ -49,7 +49,7 @@ export default class TCGdex {
 	/**
 	 * @deprecated use `this.fetch('sets', set)`
 	 */
-	public async fetchSet(set: string) {
+	public async fetchSet(set: string): Promise<Set | undefined> {
 		return this.fetch('sets', set)
 	}
 
@@ -86,11 +86,13 @@ export default class TCGdex {
 	 * @param endpoint_1 {string} the card global ID
 	 */
 	public async fetch(...type: ['cards', string]): Promise<Card | undefined>
+
 	/**
 	 * Fetch every cards in the database
 	 * @param endpoint_0 'cards'
 	 */
 	public async fetch(type: 'cards'): Promise<Array<CardResume> | undefined>
+
 	/**
 	 * Fetch a card using its local id and its set
 	 * @param endpoint_0 'sets'
@@ -98,28 +100,33 @@ export default class TCGdex {
 	 * @param endpoint_2 {string} the card local ID
 	 */
 	public async fetch(...endpoint: ['sets', string, string]): Promise<Card | undefined>
+
 	/**
 	 * Fetch a set
 	 * @param endpoint_0 'sets'
 	 * @param endpoint_1 {string} the set name or ID
 	 */
 	public async fetch(...endpoint: ['sets', string]): Promise<Set | undefined>
+
 	/**
 	 * Fetch every sets
 	 * @param endpoint_0 'sets'
 	 */
 	public async fetch(endpoint: 'sets'): Promise<SetList | undefined>
+
 	/**
 	 * Fetch a serie
 	 * @param endpoint_0 'series'
 	 * @param endpoint_1 {string} the serie name or ID
 	 */
 	public async fetch(...endpoint: ['series', string]): Promise<Serie | undefined>
+
 	/**
 	 * Fetch every series
 	 * @param endpoint_0 'series'
 	 */
 	public async fetch(endpoint: 'series'): Promise<SerieList | undefined>
+
 	/**
 	 * Fetch cards depending on a specific filter
 	 * @param endpoint_0 {'categories' | 'hp' | 'illustrators' | 'rarities' | 'retreats' | 'types'}
@@ -127,6 +134,7 @@ export default class TCGdex {
 	 * @param endpoint_1 {string} the value set while fetching the index
 	 */
 	public async fetch(...endpoint: ['categories' | 'hp' | 'illustrators' | 'rarities' | 'retreats' | 'types', string]): Promise<StringEndpoint | undefined>
+
 	/**
 	 * Fetch cards depending on a specific filter
 	 * @param endpoint_0 {'hp' | 'retreats' | 'categories' | 'illustrators' | 'rarities' | 'types'}
@@ -134,6 +142,7 @@ export default class TCGdex {
 	 * @param endpoint_1 {string} Fetch the possible values to use depending on the endpoint
 	 */
 	public async fetch(endpoint: 'hp' | 'retreats' | 'categories' | 'illustrators' | 'rarities' | 'types'): Promise<Array<string> | undefined>
+
 	/**
 	 * Fetch The differents endpoints depending on the first argument
 	 * @param endpoint_0 {'hp' | 'retreats' | 'categories' | 'illustrators' | 'rarities' | 'types'}
@@ -143,7 +152,7 @@ export default class TCGdex {
 	 */
 	public async fetch(...endpoint: Array<Endpoint | string>): Promise<any | undefined> {
 		if (endpoint.length === 0) {
-			throw new Error(`endpoint to fetch is empty!`)
+			throw new Error('endpoint to fetch is empty!')
 		}
 		// @ts-expect-error with the precedent check, we KNOW that type is not empty
 		const baseEndpoint = endpoint.shift().toLowerCase() as Endpoint
@@ -158,8 +167,8 @@ export default class TCGdex {
 	 */
 	private makeRequest<T = any>(...url: Array<string | number>) {
 		// Normalize path
-		const path = url.map((v) => encodeURI(
-			v
+		const path = url.map((subPath) => encodeURI(
+			subPath
 				// Transform numbers to string
 				.toString()
 				// replace this special character with an escaped one
@@ -167,10 +176,12 @@ export default class TCGdex {
 				// normalize the string
 				.normalize('NFC')
 				// remove some special chars by nothing
-				.replace(/["'\u0300-\u036f]/g, "")
+				// eslint-disable-next-line no-misleading-character-class
+				.replace(/["'\u0300-\u036f]/gu, '')
 		)).join('/')
 		return RequestWrapper.getRequest<T>(`${BASE_URL}/${this.getLang()}/${path}`).get()
 	}
+
 }
 
 export * from './interfaces'

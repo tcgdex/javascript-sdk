@@ -28,14 +28,16 @@ export interface SetResume {
 	logo?: string
 	symbol?: string
 	cardCount: {
+
 		/**
 		 * total of number of cards
 		 */
-		 total: number
-		 /**
+		total: number
+
+		/**
 		  * number of cards officialy (on the bottom of each cards)
 		  */
-		 official: number
+		official: number
 	}
 }
 
@@ -53,6 +55,7 @@ export interface Set extends SetResume {
 	 * card is banned from the set it will still be true
 	 */
 	legal: {
+
 		/**
 		 * Ability to play in standard tournaments
 		 */
@@ -65,26 +68,32 @@ export interface Set extends SetResume {
 	}
 
 	cardCount: {
+
 		/**
 		 * total of number of cards
 		 */
 		total: number
+
 		/**
 		 * number of cards officialy (on the bottom of each cards)
 		 */
 		official: number
+
 		/**
 		 * number of cards having a normal version
 		 */
 		normal: number
+
 		/**
 		 * number of cards having an reverse version
 		 */
 		reverse: number
+
 		/**
 		 * number of cards having an holo version
 		 */
 		holo: number
+
 		/**
 		 * Number of possible cards
 		 */
@@ -159,8 +168,9 @@ export interface Card<SetType extends SetResume = SetResume> extends CardResume 
 
 	/**
 	 * Pokemon Types
+	 * ex for multiple https://www.tcgdex.net/database/ex/ex13/17
 	 */
-	types?: Array<string> // ex for multiple https://www.tcgdex.net/database/ex/ex13/17
+	types?: Array<string>
 
 	/**
 	 * Pokemon Sub Evolution
@@ -257,7 +267,7 @@ export interface Card<SetType extends SetResume = SetResume> extends CardResume 
 
 	retreat?: number
 
-	//Trainer/Energy
+	// Trainer/Energy
 	effect?: string
 
 	// Trainer Only
@@ -277,6 +287,7 @@ export interface Card<SetType extends SetResume = SetResume> extends CardResume 
 	 * Note: all cards are avaialable to play in unlimited tournaments
 	 */
 	legal: {
+
 		/**
 		 * Ability to play in standard tournaments
 		 */
