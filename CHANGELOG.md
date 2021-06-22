@@ -7,7 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## 2.3.0 - 2021-06-22
+## 2.3.1 - 2021-06-22
+
+### Fixed
+
+- Cleaned dist folder
+
+## 2.3.0-2.3.1 - 2021-06-22
 
 ### Added
 
@@ -193,8 +199,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Constructor arg support for multiple langs
 - TranslationUtil to go from the SDK value to a text value
 
-[Unreleased]: https://github.com/tcgdex/javascript-sdk/compare/v2.3.0...HEAD
+[Unreleased]: https://github.com/tcgdex/javascript-sdk/compare/v2.3.1...HEAD
 
+[2.3.1]: https://github.com/tcgdex/javascript-sdk/releases/tag/v2.3.1
 [2.3.0]: https://github.com/tcgdex/javascript-sdk/releases/tag/v2.3.0
 [2.2.0]: https://github.com/tcgdex/javascript-sdk/releases/tag/v2.2.0
 [2.1.1]: https://github.com/tcgdex/javascript-sdk/releases/tag/v2.1.1
