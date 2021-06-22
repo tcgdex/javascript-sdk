@@ -1,4 +1,5 @@
 import TCGdex from './tcgdex'
+import { version } from './version.json'
 
 export default class Request {
 
@@ -14,7 +15,7 @@ export default class Request {
 			const unfetch = TCGdex.fetch
 			const resp = await unfetch(url, {
 				headers: {
-					'user-agent': `@tcgdex/javascript-sdk/${TCGdex.VERSION}`
+					'user-agent': `@tcgdex/javascript-sdk/${version}`
 				}
 			})
 			if (resp.status !== 200) {

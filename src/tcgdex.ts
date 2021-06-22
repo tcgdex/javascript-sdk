@@ -8,8 +8,6 @@ export default class TCGdex {
 
 	public static fetch: typeof fetch
 
-	public static readonly VERSION = '2.2.0'
-
 	/**
 	 * @deprecated to change the lang use `this.lang`
 	 */
