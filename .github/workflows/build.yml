@@ -1,0 +1,47 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Build & Test
+
+on:
+  push:
+    branches:
+      - master
+  # Run on any pull request
+  pull_request:
+
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x, 16.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: yarn
+    - run: yarn build
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - run: yarn && yarn build
+    - run: yarn test
+    # You may pin to the exact commit or the version.
+    # uses: codecov/codecov-action@6004246f47ab62d32be025ce173b241cd84ac58e
+    - uses: codecov/codecov-action@v1.0.13
+      with:
+        # Comma-separated list of files to upload
+        files: ./coverage/coverage-final.json

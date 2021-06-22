@@ -1,4 +1,4 @@
-const TCGdex = require("../dist/cjs/tcgdex.js").default
+const TCGdex = require("../src/tcgdex").default
 const fetch = require('node-fetch')
 
 const fakeFetch = (response, status = 200) => jest.fn(() =>
