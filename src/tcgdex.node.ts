@@ -1,5 +1,5 @@
 import TCGdex from './tcgdex'
-import fetch from 'node-fetch'
+import fetch from 'isomorphic-unfetch'
 
 TCGdex.fetch = fetch as any
 

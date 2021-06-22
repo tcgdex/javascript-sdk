@@ -19,12 +19,15 @@ module.exports = {
 	module: {
 		rules: [{
 			test: /\.ts$/,
-			loader: 'awesome-typescript-loader',
+			loader: 'ts-loader',
 			exclude: /node_modules/,
 			options: {
-				sourceMap: false,
-				declarationDir: false,
-				target: 'ES2016'
+				compilerOptions: {
+					sourceMap: false,
+					declaration: false,
+					declarationDir: null,
+					target: 'ES2016'
+				}
 			}
 		}]
 	}
