@@ -8,13 +8,15 @@
 	<a href="https://app.codecov.io/gh/tcgdex/javascript-sdk/">
 		<img src="https://img.shields.io/codecov/c/github/tcgdex/javascript-sdk?style=flat-square&token=FR4BI94N4Q" alt="npm version">
 	</a>
-	<a href="https://github.com/tcgdex/javascript-sdk/blob/master/LICENSE.md">
+		<a href="https://github.com/tcgdex/javascript-sdk/blob/master/LICENSE.md">
 		<img src="https://img.shields.io/github/license/tcgdex/javascript-sdk?style=flat-square" alt="the TCGdex JAvascript SDK is released under the MIT license." />
 	</a>
 	<a href="https://github.com/tcgdex/javascript-sdk/blob/master/LICENSE.md">
 		<img src="https://img.shields.io/github/workflow/status/tcgdex/javascript-sdk/Build%20&%20Test?style=flat-square" alt="the TCGdex JAvascript SDK is released under the MIT license." />
 	</a>
-
+	<a href="https://discord.gg/NehYTAhsZE">
+		<img src="https://img.shields.io/discord/857231041261076491?color=%235865F2&label=Discord&style=flat-square" alt="Discord Link">
+	</a>
 </p>
 
 # TCGdex JavaScript/TypeScript SDK
