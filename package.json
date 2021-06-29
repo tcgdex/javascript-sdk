@@ -43,11 +43,11 @@
 	},
 	"scripts": {
 		"prebuild": "node scripts/export-version-number.js",
-		"build": "yarn prebuild && yarn build:cjs && yarn build:browser && yarn build:es2015",
+		"build": "npm run prebuild && npm run build:cjs && npm run build:browser && npm run build:es2015",
 		"build:cjs": "tsc --project tsconfig.json",
 		"build:es2015": "tsc --project tsconfig.es2015.json",
 		"build:browser": "wp --config webpack.config.js",
-		"prepublishOnly": "yarn build",
+		"prepublishOnly": "npm run build",
 		"lint": "eslint",
 		"test": "jest --coverage"
 	},
