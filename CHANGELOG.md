@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## 2.4.1 - 2021-07-11
+
+## Deprecated
+
+- Deprecated `Languages` Type
+
+## 2.4.0 - 2021-06-29
+
+## Added
+
+- Support for new languages
+
 ## 2.3.1 - 2021-06-22
 
 ### Fixed
@@ -201,6 +213,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [Unreleased]: https://github.com/tcgdex/javascript-sdk/compare/v2.3.1...HEAD
 
+[2.4.0]: https://github.com/tcgdex/javascript-sdk/releases/tag/v2.4.0
 [2.3.1]: https://github.com/tcgdex/javascript-sdk/releases/tag/v2.3.1
 [2.3.0]: https://github.com/tcgdex/javascript-sdk/releases/tag/v2.3.0
 [2.2.0]: https://github.com/tcgdex/javascript-sdk/releases/tag/v2.2.0
