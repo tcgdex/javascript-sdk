@@ -1,6 +1,6 @@
 {
 	"name": "@tcgdex/sdk",
-	"version": "2.4.1",
+	"version": "2.4.2",
 	"main": "./dist/cjs/tcgdex.node.js",
 	"types": "./dist/types/tcgdex.d.ts",
 	"description": "Communicate with the Open Source TCGdex API in Javascript/Typescript using the SDK",
