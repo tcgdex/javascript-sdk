@@ -1,5 +1,8 @@
 export type SupportedLanguages = 'en' | 'fr' | 'es' | 'it' | 'pt' | 'de'
 
+/**
+ * @deprecated This is not used anymore in the API V2
+ */
 export type Languages<T = string> = Partial<Record<SupportedLanguages, T>>
 
 export interface SerieResume {
