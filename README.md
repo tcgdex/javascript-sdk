@@ -11,7 +11,7 @@
 		<a href="https://github.com/tcgdex/javascript-sdk/blob/master/LICENSE.md">
 		<img src="https://img.shields.io/github/license/tcgdex/javascript-sdk?style=flat-square" alt="the TCGdex JAvascript SDK is released under the MIT license." />
 	</a>
-	<a href="https://github.com/tcgdex/javascript-sdk/blob/master/LICENSE.md">
+	<a href="https://github.com/tcgdex/javascript-sdk/actions/workflows/build.yml">
 		<img src="https://img.shields.io/github/workflow/status/tcgdex/javascript-sdk/Build%20&%20Test?style=flat-square" alt="the TCGdex JAvascript SDK is released under the MIT license." />
 	</a>
 	<a href="https://discord.gg/NehYTAhsZE">
