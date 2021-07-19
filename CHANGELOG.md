@@ -7,11 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## 2.4.2 - 2021-07-19
+## 2.4.3 - 2021-07-19
 
 ### Added
 
 - ESM exports are back
+
+## 2.4.2 2021-07-11
+
+### Fixed
+
+- Downgraded to ES2015 to have better suport browsers
 
 ### Changed
 
@@ -221,8 +227,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Constructor arg support for multiple langs
 - TranslationUtil to go from the SDK value to a text value
 
-[Unreleased]: https://github.com/tcgdex/javascript-sdk/compare/v2.3.1...HEAD
+[Unreleased]: https://github.com/tcgdex/javascript-sdk/compare/v2.4.3...HEAD
 
+[2.4.3]: https://github.com/tcgdex/javascript-sdk/releases/tag/v2.4.3
+[2.4.2]: https://github.com/tcgdex/javascript-sdk/releases/tag/v2.4.2
+[2.4.1]: https://github.com/tcgdex/javascript-sdk/releases/tag/v2.4.1
 [2.4.0]: https://github.com/tcgdex/javascript-sdk/releases/tag/v2.4.0
 [2.3.1]: https://github.com/tcgdex/javascript-sdk/releases/tag/v2.3.1
 [2.3.0]: https://github.com/tcgdex/javascript-sdk/releases/tag/v2.3.0
