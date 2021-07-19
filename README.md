@@ -34,11 +34,17 @@ yarn add @tcgdex/sdk
 npm install @tcgdex/sdk
 ```
 
+or in the web browser
+```html
+<script src="https://cdn.jsdelivr.net/npm/@tcgdex/sdk@2/dist/tcgdex.browser.js"></script>
+```
+
 ## Usage
 
 _Note: a complete documentation is in progress_
 
 ```javascript
+// only if using with NPM/Yarn
 import TCGdex from '@tcgdex/sdk'
 
 // initialize the SDK
