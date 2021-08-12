@@ -8,6 +8,7 @@ export type Languages<T = string> = Partial<Record<SupportedLanguages, T>>
 export interface SerieResume {
 	id: string
 	name: string
+	logo?: string
 }
 
 export interface Serie extends SerieResume {
