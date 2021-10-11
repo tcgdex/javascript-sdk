@@ -1,8 +1,8 @@
 import RequestWrapper from './Request'
 import { Serie, Set, Card, CardResume, SerieList, SetList, SupportedLanguages, StringEndpoint } from './interfaces'
-type Endpoint = 'cards' | 'categories' | 'hp' | 'illustrators' | 'rarities' | 'retreats' | 'series' | 'sets' | 'types'
+type Endpoint = 'cards' | 'categories' | 'dex-ids' | 'energy-types' | 'hp' | 'illustrators' | 'rarities' | 'regulation-marks' | 'retreats' | 'series' | 'sets' | 'stages' | 'suffixes' | 'trainer-types' | 'types' | 'variants'
 
-const ENDPOINTS: Array<Endpoint> = ['cards', 'categories', 'hp', 'illustrators', 'rarities', 'retreats', 'series', 'sets', 'types']
+const ENDPOINTS: Array<Endpoint> = ['cards', 'categories', 'dex-ids', 'energy-types', 'hp', 'illustrators', 'rarities', 'regulation-marks', 'retreats', 'series', 'sets', 'stages', 'suffixes', 'trainer-types', 'types', 'variants']
 const BASE_URL = 'https://api.tcgdex.net/v2'
 export default class TCGdex {
 
@@ -127,19 +127,19 @@ export default class TCGdex {
 
 	/**
 	 * Fetch cards depending on a specific filter
-	 * @param endpoint_0 {'categories' | 'hp' | 'illustrators' | 'rarities' | 'retreats' | 'types'}
-	 * Possible value 'categories' | 'hp' | 'illustrators' | 'rarities' | 'retreats' | 'types'
+	 * @param endpoint_0 {'categories' | 'dex-ids' | 'energy-types' | 'hp' | 'illustrators' | 'rarities' | 'regulation-marks' | 'retreats' | 'stages' | 'suffixes' | 'trainer-types' | 'types' | 'variants'}
+	 * Possible value 'categories' | 'dex-ids' | 'energy-types' | 'hp' | 'illustrators' | 'rarities' | 'regulation-marks' | 'retreats' | 'stages' | 'suffixes' | 'trainer-types' | 'types' | 'variants'
 	 * @param endpoint_1 {string} the value set while fetching the index
 	 */
-	public async fetch(...endpoint: ['categories' | 'hp' | 'illustrators' | 'rarities' | 'retreats' | 'types', string]): Promise<StringEndpoint | undefined>
+	public async fetch(...endpoint: ['categories' | 'dex-ids' | 'energy-types' | 'hp' | 'illustrators' | 'rarities' | 'regulation-marks' | 'retreats' | 'stages' | 'suffixes' | 'trainer-types' | 'types' | 'variants', string]): Promise<StringEndpoint | undefined>
 
 	/**
 	 * Fetch cards depending on a specific filter
-	 * @param endpoint_0 {'hp' | 'retreats' | 'categories' | 'illustrators' | 'rarities' | 'types'}
-	 * Possible value 'hp' | 'retreats' | 'categories' | 'illustrators' | 'rarities' | 'types'
+	 * @param endpoint_0 {'categories' | 'dex-ids' | 'energy-types' | 'hp' | 'illustrators' | 'rarities' | 'regulation-marks' | 'retreats' | 'stages' | 'suffixes' | 'trainer-types' | 'types' | 'variants'}
+	 * Possible value 'categories' | 'dex-ids' | 'energy-types' | 'hp' | 'illustrators' | 'rarities' | 'regulation-marks' | 'retreats' | 'stages' | 'suffixes' | 'trainer-types' | 'types' | 'variants'
 	 * @param endpoint_1 {string} Fetch the possible values to use depending on the endpoint
 	 */
-	public async fetch(endpoint: 'hp' | 'retreats' | 'categories' | 'illustrators' | 'rarities' | 'types'): Promise<Array<string> | undefined>
+	public async fetch(endpoint: 'categories' | 'dex-ids' | 'energy-types' | 'hp' | 'illustrators' | 'rarities' | 'regulation-marks' | 'retreats' | 'stages' | 'suffixes' | 'trainer-types' | 'types' | 'variants'): Promise<Array<string> | undefined>
 
 	/**
 	 * Fetch The differents endpoints depending on the first argument
