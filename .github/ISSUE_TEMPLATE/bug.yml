@@ -1,0 +1,32 @@
+name: Bug
+description: Use this template if you have found a bug in the SDK
+title: "bug: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this Form!
+  - type: textarea
+    id: happening
+    attributes:
+      label: What is Hapening
+      placeholder: "Ex: When using this function the SDK crash..."
+    validations:
+      required: true
+  - type: textarea
+    id: happen
+    attributes:
+      label: Please explain what should happen
+      description: If you selected Other or new Data Type please put it as the first line
+      placeholder: "Ex: The SDK should not crash"
+    validations:
+      required: true
+  - type: textarea
+    id: reproducre
+    attributes:
+      label: Please give us a way to reproduce
+      description: You can list a way or give us access to a minimal Github repo to reproduce it
+      placeholder: "Ex: https://github.com/tcgdex/javascript-sdk-error-idk"
+    validations:
+      required: true

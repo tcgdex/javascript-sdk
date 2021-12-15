@@ -1,0 +1,16 @@
+name: Enhancement
+description: Use this template if you have an Idea that will enhance the SDK
+title: "enhancement: "
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this Form!
+  - type: textarea
+    id: explain
+    attributes:
+      label: Please explain in more details what idea you have
+      placeholder: "Ex: I would love to see this or this..."
+    validations:
+      required: true
