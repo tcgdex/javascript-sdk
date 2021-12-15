@@ -8,13 +8,13 @@
 		<img src="https://img.shields.io/npm/v/@tcgdex/sdk?style=flat-square" alt="NOM Version">
 	</a>
 	<a href="http://npmjs.com/@tcgdex/sdk">
-		<img src="https://img.shields.io/npm/dw/@tcgdex/sdk?style=flat-square" alt="NPM Downloads">
+		<img src="https://img.shields.io/npm/dm/@tcgdex/sdk?style=flat-square" alt="NPM Downloads">
 	</a>
 	<a href="https://app.codecov.io/gh/tcgdex/javascript-sdk/">
 		<img src="https://img.shields.io/codecov/c/github/tcgdex/javascript-sdk?style=flat-square&token=FR4BI94N4Q" alt="npm version">
 	</a>
-		<a href="https://github.com/tcgdex/javascript-sdk/blob/master/LICENSE.md">
-		<img src="https://img.shields.io/github/license/tcgdex/javascript-sdk?style=flat-square" alt="the TCGdex JAvascript SDK is released under the MIT license." />
+		<a href="https://github.com/tcgdex/javascript-sdk/stargazers">
+		<img src="https://img.shields.io/github/stars/tcgdex/javascript-sdk?style=flat-square" alt="Github stars">
 	</a>
 	<a href="https://github.com/tcgdex/javascript-sdk/actions/workflows/build.yml">
 		<img src="https://img.shields.io/github/workflow/status/tcgdex/javascript-sdk/Build%20&%20Test?style=flat-square" alt="the TCGdex JAvascript SDK is released under the MIT license." />
@@ -26,58 +26,108 @@
 
 # TCGdex JavaScript/TypeScript SDK
 
-Communicate with the Open Source TCGdex API in Javascript/Typescript using the SDK
+The Javascript/Typescript SDK provides a convenient access with the Open Source TCGdex API.
 
-Full API/SDK documentation in progress at https://www.tcgdex.net/docs
+The SDK is available in ESM and CommonJS and should be automaticly chosen.
 
-## Getting Started
+## Documentation
 
-Install the SDK using:
-```bash
-yarn add @tcgdex/sdk
-# or
-npm install @tcgdex/sdk
-```
+_The full API/SDK documentation in progress at [API Documentation - TCGdex](https://www.tcgdex.dev)_
 
-or in the web browser
+### Getting Started
+
+#### How To install
+
+**In the browser**
+
+To use the SDK in the browser, simply add the following script tag to your
+HTML pages:
+
 ```html
 <script src="https://cdn.jsdelivr.net/npm/@tcgdex/sdk@2/dist/tcgdex.browser.js"></script>
 ```
 
-## Usage
+You cna also download the script from [JSDelivr](https://cdn.jsdelivr.net/npm/@tcgdex/sdk@2/dist/tcgdex.browser.js) by right clicking the link and selecting save link as.
 
-_Note: a complete documentation is in progress_
+**In Node.js**
+
+Simply type the following into a terminal window:
+
+```bash
+npm install @tcgdex/sdk
+```
+
+#### Usage
+
+_Note: a complete documentation is available at [TCGdex.dev](https://www.tcgdex.dev)_
+
+**Example: Fetch a Card**
+
+```typescript
+// Import the SDK in Typescript
+import TCGdex from '@tcgdex/sdk';
+
+// Instantiate the SDK
+// note: you can use one of the following lanugages
+const tcgdex = new TCGdex('en');
+
+// Card will be Furret from the Darkness Ablaze Set
+const card = await tcgdex.fetch('cards', 'swsh3-136');
+
+// You can also get the same result using
+const card = await tcgdex.fetch('sets', 'Darkness Ablaze', 136);
+```
+
+**Other Examples**
 
 ```javascript
-// only if using with NPM/Yarn
-import TCGdex from '@tcgdex/sdk'
+// fetch a Set's informations using the set's name or ID
+await tcgdex.fetch('sets', 'Darkness Ablaze')
 
-// initialize the SDK
-const tcgdex = new TCGdex('en') // Lang code (Optionnal) (See interfaces.ts line 1 for supported languages)
+// Fetch a serie using the serie's name or ID
+await tcgdex.fetch('series', 'Sword & Shield')
 
-// if you need to change the language
-tcgdex.lang = 'fr'
+// Fetch cards possible pokemon cards HP
+await tcgdex.fetch('hp');
 
-// get a Card using its global ID
-await tcgdex.fetch('cards', 'base1-1')
+// Fetch Cards with the specific number of HP
+await tcgdex.fetch('hp', 110);
 
-// fetch a Card using it's local id and set name/ID
-await tcgdex.fetch('sets', 'Base Set', 1)
+// Fetch cards possible illustrators
+await tcgdex.fetch('illustrators');
 
-// fetch a Set's informations using the set's name/ID
-await tcgdex.fetch('sets', 'Sword & Shield')
-
-// Fetch a serie using the serie's name/ID
-await tcgdex.fetch('series', 'Black & White')
-
-// Fetch cards using other endpoints
-/**
- * categories => the the different cards categories
- * hp => fetch the different cards possible HPs
- * illustrators => fetch all the cards illustrators
- * rarities => fetch the cards rarities
- * retreats => fetch the cards using the retreat count
- * types => fetch the cards using the Pokémon type(s)
- **/
-await tcgdex.fetch('categories')
+// Fetch Cards with the specific illustrator
+await tcgdex.fetch('illustrators', 'tetsuya koizumi');
 ```
+
+**Other Endpoints**
+
+_They work like the two (`hp` and `illustrators`) abose_
+
+- categories: the the different cards categories
+- energy-types: Fetch different types of energies
+- hp: fetch the different cards possible HPs
+- illustrators: fetch all the cards illustrators
+- rarities: fetch the cards rarities
+- retreats: fetch the cards using the retreat count
+- stages: fetch differents cards stages
+- suffixes: fetch differents cards suffixes
+- trainer-types: fetch trainer cards types
+- dex-ids: fetch pokemon Global Pokédex IDS
+- types: fetch the cards using the Pokémon type(s)
+
+## Contributing
+
+See [CONTRIBUTING.md](https://github.com/tcgdex/javascript-sdk/blob/master/CONTRIBUTING.md)
+
+TL::DR
+
+- Fork
+
+- Commit your changes
+
+- Pull Request on this Repository
+
+## License
+
+This project is licensed under the IT License. A copy of the license is available at [LICENSE.md](https://github.com/tcgdex/javascript-sdk/blob/master/LICENSE.md)
