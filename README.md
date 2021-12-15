@@ -1,4 +1,9 @@
 <p align="center">
+	<a href="https://www.tcgdex.net">
+		<img src="https://www.tcgdex.net/assets/og.png" width="90%" alt="TCGdex Main Image">
+	</a>
+</p>
+<p align="center">
 	<a href="http://npmjs.com/@tcgdex/sdk">
 		<img src="https://img.shields.io/npm/v/@tcgdex/sdk?style=flat-square" alt="NOM Version">
 	</a>
