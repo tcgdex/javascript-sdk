@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## 2.4.6 - 2022-01-28
+
+### Fixed
+
+- Updated node-fetch for CVE-2022-0235
+
+## 2.4.5 - 2021-10-11
+
+### Added
+
+- Added new endpoint
+
+## 2.4.4 - 2021-08-12
+
+### Added
+
+- New logo field in serie
+
 ## 2.4.3 - 2021-07-19
 
 ### Added
