@@ -54,5 +54,8 @@
 	"files": [
 		"dist"
 	],
-	"sideEffects": false
+	"sideEffects": false,
+	"jest": {
+		"testTimeout": 30000
+	}
 }
