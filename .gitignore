@@ -5,4 +5,4 @@ coverage
 
 # Dist files
 dist
-src/version.json
+src/version.js
