@@ -1,5 +1,5 @@
 import TCGdex from './tcgdex'
-import { version } from './version.json'
+import { version } from './version'
 
 export default class Request {
 
