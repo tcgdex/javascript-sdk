@@ -63,19 +63,40 @@ _Note: a complete documentation is available at [TCGdex.dev](https://www.tcgdex.
 
 **Example: Fetch a Card**
 
+_in Browser_
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@tcgdex/sdk@2.4.9/dist/tcgdex.browser.js"></script>
+<script>
+	// Instantiate the SDK
+	const tcgdex = new TCGdex('en');
+
+	// go into an async context
+	;(async () => {
+		// Card will be Furret from the Darkness Ablaze Set
+		const card = await tcgdex.fetch('cards', 'swsh3-136');
+	})();
+</script>
+```
+
+_in NodeJS (in an async context)_
+
 ```typescript
 // Import the SDK in Typescript
 import TCGdex from '@tcgdex/sdk';
 
 // Instantiate the SDK
-// note: you can use one of the following lanugages
 const tcgdex = new TCGdex('en');
 
-// Card will be Furret from the Darkness Ablaze Set
-const card = await tcgdex.fetch('cards', 'swsh3-136');
+// go into an async context
+(async () => {
+	// Card will be Furret from the Darkness Ablaze Set
+	const card = await tcgdex.fetch('cards', 'swsh3-136');
 
-// You can also get the same result using
-const card = await tcgdex.fetch('sets', 'Darkness Ablaze', 136);
+	// You can also get the same result using
+	const card = await tcgdex.fetch('sets', 'Darkness Ablaze', 136);
+})();
+
 ```
 
 **Other Examples**
