@@ -82,8 +82,11 @@ _in Browser_
 _in NodeJS (in an async context)_
 
 ```typescript
-// Import the SDK in Typescript
-import TCGdex from '@tcgdex/sdk';
+// Import the SDK in Typescript or moduleJS
+import TCGdex from '@tcgdex/sdk'
+
+// import the SDK in commonJS
+const TCGdex = require('@tcgdex/sdk').default
 
 // Instantiate the SDK
 const tcgdex = new TCGdex('en');
