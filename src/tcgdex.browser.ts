@@ -1,11 +1,6 @@
-import TCGdex from './tcgdex'
 import unfetch from 'unfetch'
+import TCGdex from './tcgdex'
 
 TCGdex.fetch = window.fetch ?? unfetch as any
 
-if (typeof global !== 'undefined') {
-	global.TCGdex = TCGdex
-}
-if (typeof window !== 'undefined') {
-	(window as any).TCGdex = TCGdex
-}
+export default TCGdex
