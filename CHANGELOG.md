@@ -7,6 +7,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## 2.5.1 - 2023-07-18
+
+### Fixed
+
+- ModuleJS exports not working as intended
+
+## 2.5.0 - 2023-06-28
+
+### Added
+
+- Support for both ModuleJS and CommonJS
+
+## 2.4.9 - 2022-09-26
+
+### Fixed
+
+- package not loading on browser
+
+## 2.4.8 - 2022-09-26
+
+### Fixed
+
+- fix version number not correctly exposting
+
+## 2.4.7 - 2022-09-26
+
+### Fixed
+
+- Compatibility with Angular
+
 ## 2.4.6 - 2022-01-28
 
 ### Fixed
