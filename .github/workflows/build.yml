@@ -15,8 +15,8 @@ jobs:
 
     strategy:
       matrix:
-        # Follow current releases https://nodejs.org/en/about/releases/
-        node-version: [14.x, 16.x, 18.x, 19.x]
+        # Follow current releases https://github.com/nodejs/release#release-schedule
+        node-version: [18.x, 20.x, 21.x]
 
     steps:
     - name: Checkout
@@ -37,7 +37,7 @@ jobs:
       run: npm run test
 
     - name: Upload Coverage
-      if: matrix.node-version == '16.x'
+      if: matrix.node-version == '21.x'
       uses: codecov/codecov-action@v3
       with:
         # Comma-separated list of files to upload
