@@ -1,8 +1,7 @@
 {
 	"extends": "./node_modules/@dzeio/config/tsconfig.base",
-	"include": ["./src/tcgdex.node.ts"],
 	"compilerOptions": {
-		"target": "ES2015",
-		"rootDir": "./src",
+		"outDir": "dist",
+		"importsNotUsedAsValues": "error"
 	}
 }

@@ -9,6 +9,7 @@ export default class Request {
 	private static cache: Record<string, {response: any, time: number}> = {}
 
 	public static async fetch<T>(url: string): Promise<T | undefined> {
+		console.log(url)
 		let request = this.cache[url]
 		const now = new Date().getTime()
 		if (!request || now - request.time > this.ttl) {

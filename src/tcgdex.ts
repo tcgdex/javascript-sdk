@@ -1,22 +1,65 @@
+import { objectLoop } from '@dzeio/object-util'
 import RequestWrapper from './Request'
-import { Serie, Set, Card, CardResume, SerieList, SetList, SupportedLanguages, StringEndpoint } from './interfaces'
+import Endpoint from './endpoints/Endpoint'
+import { Card, CardResume, Serie, SerieList, Set, SetList, StringEndpoint, SupportedLanguages } from './interfaces'
+import CardModel from './models/Card'
+import CardResumeModel from './models/CardResume'
+import SetModel from './models/Set'
+import SetResumeModel from './models/SetResume'
 type Endpoint = 'cards' | 'categories' | 'dex-ids' | 'energy-types' | 'hp' | 'illustrators' | 'rarities' | 'regulation-marks' | 'retreats' | 'series' | 'sets' | 'stages' | 'suffixes' | 'trainer-types' | 'types' | 'variants'
 
 const ENDPOINTS: Array<Endpoint> = ['cards', 'categories', 'dex-ids', 'energy-types', 'hp', 'illustrators', 'rarities', 'regulation-marks', 'retreats', 'series', 'sets', 'stages', 'suffixes', 'trainer-types', 'types', 'variants']
-const BASE_URL = 'https://api.tcgdex.net/v2'
+
 export default class TCGdex {
 
-	public static fetch: typeof fetch
+	public static fetch: typeof fetch = fetch
 
 	/**
-	 * @deprecated to change the lang use `this.lang`
+	 * @deprecated to change the lang use {@link TCGdex.getDefaultLanguage} and {@link TCGdex.setDefaultLanguage}
 	 */
 	public static defaultLang: SupportedLanguages = 'en'
 
-	public constructor(public lang?: SupportedLanguages) {}
+	private static instance: Partial<Record<SupportedLanguages, TCGdex>> = {}
+
+	private static endpointURL = 'https://api.tcgdex.net/v2'
+
+	public card = new Endpoint(this, CardModel, CardResumeModel, 'cards')
+	public set = new Endpoint(this, SetModel, SetResumeModel, 'sets')
+
+	public constructor(public lang?: SupportedLanguages) {
+		TCGdex.instance[lang ?? TCGdex.defaultLang] = this
+	}
+
+	public static getInstance(lang: SupportedLanguages = TCGdex.defaultLang): TCGdex {
+		if (lang in this.instance && this.instance[lang]?.lang !== lang) {
+			delete this.instance[lang]
+		}
+		if (!this.instance[lang]) {
+			this.instance[lang] = new TCGdex(lang)
+		}
+		return this.instance[lang]!
+	}
+
+	public static setEndpoint(endpoint: string) {
+		this.endpointURL = endpoint
+	}
+	public static getEndpoint(): string {
+		return this.endpointURL
+	}
+
+	public static setDefaultLang(lang: SupportedLanguages) {
+		this.defaultLang = lang
+	}
+	public static getDefaultLang(): SupportedLanguages {
+		return this.defaultLang
+	}
 
 	public getLang(): SupportedLanguages {
 		return this.lang ?? TCGdex.defaultLang ?? 'en'
+	}
+
+	public setLang(lang: SupportedLanguages) {
+		this.lang = lang
 	}
 
 	/**
@@ -160,13 +203,45 @@ export default class TCGdex {
 		return this.makeRequest(baseEndpoint, ...endpoint)
 	}
 
+	public async fetchWithQuery(endpoint: [Endpoint, ...Array<string>], query?: Record<string, string | number | boolean>) {
+		if (endpoint.length === 0) {
+			throw new Error('endpoint to fetch is empty!')
+		}
+		const baseEndpoint = endpoint[0].toLowerCase() as Endpoint
+		if (!ENDPOINTS.includes(baseEndpoint)) {
+			throw new Error(`unknown endpoint to fetch! (${baseEndpoint})`)
+		}
+		return this.makeRequest2(endpoint, query)
+	}
+
 	/**
 	 * Function to make the request and normalize the whole path
 	 */
 	private makeRequest<T = any>(...url: Array<string | number>) {
+		return this.makeRequest2<T>(url)
+	}
+
+	/**
+	 * Function to make the request and normalize the whole path
+	 */
+	private makeRequest2<T = any>(url: Array<string | number>, searchParams?: Record<string, string | number | boolean>) {
 		// Normalize path
-		const path = url.map((subPath) => encodeURI(
-			subPath
+		let path = url.map(this.encode).join('/')
+		if (searchParams) {
+			path += '?'
+			objectLoop(searchParams, (value, key, index) => {
+				if (index !== 0) {
+					path += '&'
+				}
+				path += `${this.encode(key)}=${this.encode(value)}`
+			})
+		}
+		return RequestWrapper.fetch<T>(`${TCGdex.endpointURL}/${this.getLang()}/${path}`)
+	}
+
+	private encode(str: string | number | boolean): string {
+		return encodeURI(
+			str
 				// Transform numbers to string
 				.toString()
 				// replace this special character with an escaped one
@@ -176,10 +251,10 @@ export default class TCGdex {
 				// remove some special chars by nothing
 				// eslint-disable-next-line no-misleading-character-class
 				.replace(/["'\u0300-\u036f]/gu, '')
-		)).join('/')
-		return RequestWrapper.fetch<T>(`${BASE_URL}/${this.getLang()}/${path}`)
+		)
 	}
 
 }
 
-export * from './interfaces'
+// export * from './interfaces'
+export * from './models/Card'
