@@ -1,6 +1,7 @@
 import CardResume from './CardResume'
 import type { Variants } from './Other'
-import type Set from './Set'
+import type TCGdexSet from './Set'
+import type SetResume from './SetResume'
 
 // TODO: sort elements by alphabetical order
 export default class Card extends CardResume {
@@ -187,11 +188,11 @@ export default class Card extends CardResume {
 		expanded: boolean
 	}
 
-	public async getFullCard(): Promise<Card | undefined> {
+	public async getFullCard(): Promise<Card> {
 		return this
 	}
 
-	public async getSet(): Promise<Set> {
-		return this.sdk.set.get(this.set.id)
+	public async getSet(): Promise<TCGdexSet> {
+		return (await this.sdk.set.get(this.set.id))!
 	}
 }

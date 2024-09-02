@@ -1,5 +1,5 @@
-import { Extension, Quality } from '../interface'
-import Card from './Card'
+import type { Extension, Quality } from '../interfaces'
+import type Card from './Card'
 import Model from './Model'
 
 export default class CardResume extends Model {
@@ -41,7 +41,7 @@ export default class CardResume extends Model {
 	 *
 	 * @return the full card if available
 	 */
-	public async getFullCard(): Promise<Card | undefined> {
-		return this.sdk.card.get(this.id)
+	public async getFullCard(): Promise<Card> {
+		return (await this.sdk.card.get(this.id))!
 	}
 }

@@ -1,12 +1,18 @@
-import { CardResume, SupportedLanguages } from '../interfaces'
-import TCGdex from '../tcgdex'
+import { objectLoop } from '@dzeio/object-util'
+import CardResume from './CardResume'
 import Model from './Model'
-import SetResume from './SetResume'
+import type { Variants } from './Other'
+import type SerieResume from './SerieResume'
 
-export default class Set extends SetResume {
+// biome-ignore lint/suspicious/noShadowRestrictedNames: <explanation>
+export default class Set extends Model {
+	public id!: string
+	public name!: string
+	public logo?: string
+	public symbol?: string
 	public serie!: SerieResume
 	public tcgOnline?: string
-	public variants?: variants
+	public variants?: Variants
 
 	public releaseDate!: string
 
@@ -63,4 +69,17 @@ export default class Set extends SetResume {
 	}
 
 	public cards!: Array<CardResume>
+
+	protected fill(obj: object): void {
+		objectLoop(obj, (value, key) => {
+			switch (key) {
+				case 'cards':
+					this.cards = (value as Array<any>).map((it) => Model.build(new CardResume(this.sdk), it))
+					break
+				default:
+					this[key] = value
+					break
+			}
+		})
+	}
 }

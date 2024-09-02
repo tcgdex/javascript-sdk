@@ -1,5 +1,5 @@
 import { objectLoop } from '@dzeio/object-util'
-import TCGdex from '../tcgdex'
+import type TCGdex from '../tcgdex'
 
 export default abstract class Model {
 
@@ -12,7 +12,7 @@ export default abstract class Model {
 	 * @param model the model to build
 	 * @param data the data to fill it with
 	 */
-	public static build<T extends Model>(model: T, data?: any): T {
+	public static build<T extends Model>(model: T, data?: object): T {
 		if (!data) {
 			throw new Error('data is necessary.')
 		}
@@ -20,9 +20,9 @@ export default abstract class Model {
 		return model
 	}
 
-	protected fill(obj: any) {
+	protected fill(obj: object) {
 		objectLoop(obj, (value, key) => {
-			(this as any)[key] = value
+			(this as object)[key] = value
 		})
 	}
 }

@@ -1,57 +1,111 @@
 import { objectLoop } from '@dzeio/object-util'
-import RequestWrapper from './Request'
+import type CacheInterface from './Psr/SimpleCache/CacheInterface'
+import LocalStorageCache from './Psr/SimpleCache/LocalStorageCache'
+import MemoryCache from './Psr/SimpleCache/MemoryCache'
 import Endpoint from './endpoints/Endpoint'
-import { Card, CardResume, Serie, SerieList, Set, SetList, StringEndpoint, SupportedLanguages } from './interfaces'
+import type {
+	Card,
+	CardResume,
+	Endpoints,
+	Serie,
+	SerieList,
+	SetList,
+	StringEndpoint,
+	SupportedLanguages,
+	Set as TCGdexSet
+} from './interfaces'
 import CardModel from './models/Card'
 import CardResumeModel from './models/CardResume'
 import SetModel from './models/Set'
 import SetResumeModel from './models/SetResume'
-type Endpoint = 'cards' | 'categories' | 'dex-ids' | 'energy-types' | 'hp' | 'illustrators' | 'rarities' | 'regulation-marks' | 'retreats' | 'series' | 'sets' | 'stages' | 'suffixes' | 'trainer-types' | 'types' | 'variants'
-
-const ENDPOINTS: Array<Endpoint> = ['cards', 'categories', 'dex-ids', 'energy-types', 'hp', 'illustrators', 'rarities', 'regulation-marks', 'retreats', 'series', 'sets', 'stages', 'suffixes', 'trainer-types', 'types', 'variants']
+import { detectContext, ENDPOINTS } from './utils'
+import { version } from './version'
 
 export default class TCGdex {
 
+	/**
+	 * How the remote data is going to be fetched
+	 */
 	public static fetch: typeof fetch = fetch
 
 	/**
-	 * @deprecated to change the lang use {@link TCGdex.getDefaultLanguage} and {@link TCGdex.setDefaultLanguage}
+	 * @deprecated to change the lang use {@link TCGdex.getLang} and {@link TCGdex.setLang}
 	 */
 	public static defaultLang: SupportedLanguages = 'en'
 
-	private static instance: Partial<Record<SupportedLanguages, TCGdex>> = {}
+	/**
+	 * the previously hidden caching system used by TCGdex to not kill the API
+	 */
+	public cache: CacheInterface =
+		detectContext() === 'browser' ? new LocalStorageCache('tcgdex-cache') : new MemoryCache()
 
-	private static endpointURL = 'https://api.tcgdex.net/v2'
+	/**
+	 * the default cache TTL, only subsequent requests will have their ttl changed
+	 */
+	public cacheTTL = 60 * 60
 
-	public card = new Endpoint(this, CardModel, CardResumeModel, 'cards')
-	public set = new Endpoint(this, SetModel, SetResumeModel, 'sets')
+	public readonly card = new Endpoint(this, CardModel, CardResumeModel, 'cards')
+	public readonly set = new Endpoint(this, SetModel, SetResumeModel, 'sets')
 
-	public constructor(public lang?: SupportedLanguages) {
-		TCGdex.instance[lang ?? TCGdex.defaultLang] = this
+	private lang: SupportedLanguages = 'en'
+	private endpointURL = 'https://api.tcgdex.net/v2'
+
+	/**
+	 * @deprecated use the constructor parameter or {@link TCGdex.setLang} when in an instance
+	 */
+	public static setDefaultLang(lang: SupportedLanguages) {
+		TCGdex.defaultLang = lang
 	}
 
-	public static getInstance(lang: SupportedLanguages = TCGdex.defaultLang): TCGdex {
-		if (lang in this.instance && this.instance[lang]?.lang !== lang) {
-			delete this.instance[lang]
-		}
-		if (!this.instance[lang]) {
-			this.instance[lang] = new TCGdex(lang)
-		}
-		return this.instance[lang]!
+	/**
+	 * @deprecated use {@link TCGdex.setLang} when in an instance
+	 */
+	public static getDefaultLang(): SupportedLanguages {
+		return TCGdex.defaultLang
 	}
 
-	public static setEndpoint(endpoint: string) {
+	/**
+	 * the endpoint URL
+	 * ex: `https://api.tcgdex.net/v2`
+	 * @param endpoint the url
+	 */
+	public setEndpoint(endpoint: string) {
 		this.endpointURL = endpoint
 	}
-	public static getEndpoint(): string {
+	public getEndpoint(): string {
 		return this.endpointURL
 	}
 
-	public static setDefaultLang(lang: SupportedLanguages) {
-		this.defaultLang = lang
+	/**
+	 * set the current cache methodology
+	 * @param cache the cache to use
+	 */
+	public setCache(cache: CacheInterface) {
+		this.cache = cache
 	}
-	public static getDefaultLang(): SupportedLanguages {
-		return this.defaultLang
+
+	/**
+	 * get the current cache methodology
+	 * @param cache the cache to use
+	 */
+	public getCache(): CacheInterface {
+		return this.cache
+	}
+
+	/**
+	 * the endpoint URL
+	 * ex: `https://api.tcgdex.net/v2`
+	 * @param endpoint the url
+	 */
+	public setCacheTTL(seconds: number) {
+		this.cacheTTL = seconds
+	}
+	/**
+	 * get the current useed cache ttl in seconds
+	 * @returns the cache ttl in seconds
+	 */
+	public getCacheTTL(): number {
+		return this.cacheTTL
 	}
 
 	public getLang(): SupportedLanguages {
@@ -90,7 +144,7 @@ export default class TCGdex {
 	/**
 	 * @deprecated use `this.fetch('sets', set)`
 	 */
-	public async fetchSet(set: string): Promise<Set | undefined> {
+	public async fetchSet(set: string): Promise<TCGdexSet | undefined> {
 		return this.fetch('sets', set)
 	}
 
@@ -147,7 +201,7 @@ export default class TCGdex {
 	 * @param endpoint_0 'sets'
 	 * @param endpoint_1 {string} the set name or ID
 	 */
-	public async fetch(...endpoint: ['sets', string]): Promise<Set | undefined>
+	public async fetch(...endpoint: ['sets', string]): Promise<TCGdexSet | undefined>
 
 	/**
 	 * Fetch every sets
@@ -191,7 +245,7 @@ export default class TCGdex {
 	 * @param endpoint_1 {string} (Optionnal) some details to go from the index file to the item file (mostly the ID/name)
 	 * @param endpoint_2 {string} (Optionnal) only for sets the card local ID to fetch the card through the set
 	 */
-	public async fetch(...endpoint: Array<Endpoint | string>): Promise<any | undefined> {
+	public async fetch<T = object>(...endpoint: Array<Endpoints | string>): Promise<T | undefined> {
 		if (endpoint.length === 0) {
 			throw new Error('endpoint to fetch is empty!')
 		}
@@ -200,33 +254,38 @@ export default class TCGdex {
 		if (!ENDPOINTS.includes(baseEndpoint)) {
 			throw new Error(`unknown endpoint to fetch! (${baseEndpoint})`)
 		}
-		return this.makeRequest(baseEndpoint, ...endpoint)
+		return this.actualFetch<T>(this.getFullURL([baseEndpoint, ...endpoint]))
 	}
 
-	public async fetchWithQuery(endpoint: [Endpoint, ...Array<string>], query?: Record<string, string | number | boolean>) {
+	/**
+	 * @param endpoint the endpoint to fetch
+	 * @param query the query
+	 */
+	public async fetchWithQuery<T = object>(
+		endpoint: [Endpoints, ...Array<string>],
+		query?: Record<string, string | number | boolean>
+	): Promise<T | undefined> {
 		if (endpoint.length === 0) {
 			throw new Error('endpoint to fetch is empty!')
 		}
-		const baseEndpoint = endpoint[0].toLowerCase() as Endpoint
+		const baseEndpoint = endpoint[0].toLowerCase() as Endpoints
 		if (!ENDPOINTS.includes(baseEndpoint)) {
 			throw new Error(`unknown endpoint to fetch! (${baseEndpoint})`)
 		}
-		return this.makeRequest2(endpoint, query)
+		return this.actualFetch<T>(this.getFullURL(endpoint, query))
 	}
 
 	/**
-	 * Function to make the request and normalize the whole path
+	 * format the final URL
 	 */
-	private makeRequest<T = any>(...url: Array<string | number>) {
-		return this.makeRequest2<T>(url)
-	}
-
-	/**
-	 * Function to make the request and normalize the whole path
-	 */
-	private makeRequest2<T = any>(url: Array<string | number>, searchParams?: Record<string, string | number | boolean>) {
+	private getFullURL(
+		url: Array<string | number>,
+		searchParams?: Record<string, string | number | boolean>
+	): string{
 		// Normalize path
 		let path = url.map(this.encode).join('/')
+
+		// handle the Search Params
 		if (searchParams) {
 			path += '?'
 			objectLoop(searchParams, (value, key, index) => {
@@ -236,9 +295,51 @@ export default class TCGdex {
 				path += `${this.encode(key)}=${this.encode(value)}`
 			})
 		}
-		return RequestWrapper.fetch<T>(`${TCGdex.endpointURL}/${this.getLang()}/${path}`)
+
+		// return with the endpoint and all the shit
+		return `${this.getEndpoint()}/${this.getLang()}/${path}`
 	}
 
+	private async actualFetch<T = object>(path: string): Promise<T | undefined> {
+		// get and return the cached value if available
+		const cached = this.cache.get(path)
+		if (cached) {
+			return cached as T
+		}
+
+		// the actual Fetch :D
+		const resp = await TCGdex.fetch(path, {
+			headers: {
+				'user-agent': `@tcgdex/javascript-sdk/${version}`
+			}
+		})
+
+		// throw if a server-side error is occured
+		if (resp.status >= 500) {
+			try {
+				const json = JSON.stringify(await resp.json())
+				throw new Error(json)
+			} catch {
+				throw new Error('TCGdex Server responded with an invalid error :(')
+			}
+		}
+
+		// response is not valid :O
+		if (resp.status !== 200) {
+			return undefined
+		}
+
+		// parse, put to cache and return
+		const json = await resp.json()
+		this.cache.set(path, json, this.cacheTTL)
+		return json as T
+	}
+
+	/**
+	 * encode a string to be used in an url
+	 * @param str the string to encode to URL
+	 * @returns the encoded string
+	 */
 	private encode(str: string | number | boolean): string {
 		return encodeURI(
 			str
@@ -248,13 +349,11 @@ export default class TCGdex {
 				.replace('?', '%3F')
 				// normalize the string
 				.normalize('NFC')
-				// remove some special chars by nothing
+				// remove some special chars
 				// eslint-disable-next-line no-misleading-character-class
 				.replace(/["'\u0300-\u036f]/gu, '')
 		)
 	}
-
 }
 
-// export * from './interfaces'
 export * from './models/Card'

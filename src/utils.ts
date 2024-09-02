@@ -1,31 +1,20 @@
-import { objectLoop } from '@dzeio/object-util'
-import { Query, QueryPagination, QuerySort } from './interface'
+import type { Endpoints } from './interfaces'
 
-export function parseQuery<T extends object>(
-	query?: Query<T>,
-	sort?: QuerySort<T>,
-	pagination?: QueryPagination
-): Record<string, string | number | boolean> {
-	const final: Record<string, string | number | boolean> = {}
-	if (query) {
-		objectLoop(query as any, (v, k) => {
-			// special case, skip lang attribute
-			if (k === 'lang') {
-				return
-			}
-			final[k] = v
-		})
+/**
+ * detect the current running context ofthe program
+ */
+export function detectContext(): 'browser' | 'server' {
+	try {
+		const isBrowser = !!window
+		return isBrowser ? 'browser' : 'server'
+	} catch {
+		return 'server'
 	}
-	if (sort) {
-		objectLoop(sort, (v, k) => {
-			final[`sort:${k}`] = v as string
-		})
-	}
-	if (pagination) {
-		objectLoop(pagination, (v, k) => {
-			final[`pagination:${k}`] = v as string
-		})
-	}
-
-	return final
 }
+
+export const ENDPOINTS: Array<Endpoints> = [
+	'cards', 'categories', 'dex-ids', 'energy-types',
+	'hp', 'illustrators', 'rarities', 'regulation-marks',
+	'retreats', 'series', 'sets', 'stages', 'suffixes',
+	'trainer-types', 'types', 'variants'
+] as const

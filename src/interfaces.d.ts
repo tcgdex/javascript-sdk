@@ -310,3 +310,12 @@ export interface StringEndpoint {
 	name: string
 	cards: Array<CardResume>
 }
+
+export type Quality = 'low' | 'high'
+
+export type Extension = 'jpg' | 'webp' | 'png'
+
+export type Endpoints = 'cards' | 'categories' | 'dex-ids' | 'energy-types' |
+						'hp' | 'illustrators' | 'rarities' | 'regulation-marks' |
+						'retreats' | 'series' | 'sets' | 'stages' | 'suffixes' |
+						'trainer-types' | 'types' | 'variants'

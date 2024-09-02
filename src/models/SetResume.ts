@@ -1,5 +1,5 @@
 import Model from './Model'
-import type Set from './Set'
+import type TCGdexSet from './Set'
 
 export default class SetResume extends Model {
 	public id!: string
@@ -19,7 +19,7 @@ export default class SetResume extends Model {
 		official: number
 	}
 
-	public getFullSet(): Promise<Set> {
-		return this.sdk.set.get(this.id)
+	public async getFullSet(): Promise<TCGdexSet> {
+		return (await this.sdk.set.get(this.id))!
 	}
 }
