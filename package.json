@@ -54,8 +54,7 @@
 	},
 	"dependencies": {
 		"@dzeio/object-util": "^1",
-		"isomorphic-unfetch": "^3",
-		"unfetch": "^4"
+		"isomorphic-unfetch": "^3"
 	},
 	"scripts": {
 		"prebuild": "node scripts/export-version-number.js",
