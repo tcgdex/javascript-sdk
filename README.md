@@ -17,7 +17,7 @@
 		<img src="https://img.shields.io/github/stars/tcgdex/javascript-sdk?style=flat-square" alt="Github stars">
 	</a>
 	<a href="https://github.com/tcgdex/javascript-sdk/actions/workflows/build.yml">
-		<img src="https://img.shields.io/github/workflow/status/tcgdex/javascript-sdk/Build%20&%20Test?style=flat-square" alt="the TCGdex JAvascript SDK is released under the MIT license." />
+		<img src="https://img.shields.io/github/actions/workflow/status/tcgdex/javascript-sdk/build.yml?style=flat-square" alt="the TCGdex JAvascript SDK is released under the MIT license." />
 	</a>
 	<a href="https://discord.gg/NehYTAhsZE">
 		<img src="https://img.shields.io/discord/857231041261076491?color=%235865F2&label=Discord&style=flat-square" alt="Discord Link">
