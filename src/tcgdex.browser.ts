@@ -1,6 +1,5 @@
-import unfetch from 'unfetch'
 import TCGdex from './tcgdex'
 
-TCGdex.fetch = window.fetch ?? unfetch as any
+TCGdex.fetch = window.fetch
 
 export default TCGdex
