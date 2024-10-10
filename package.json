@@ -54,7 +54,6 @@
 	},
 	"dependencies": {
 		"@dzeio/object-util": "^1",
-		"@types/bun": "^1.1.11",
 		"isomorphic-unfetch": "^3"
 	},
 	"scripts": {
