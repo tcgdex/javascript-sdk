@@ -70,6 +70,10 @@ export default class Set extends Model {
 
 	public cards!: Array<CardResume>
 
+	public async getSerie() {
+		return this.sdk.serie.get(this.serie.id)
+	}
+
 	protected fill(obj: object): void {
 		objectLoop(obj, (value, key) => {
 			switch (key) {

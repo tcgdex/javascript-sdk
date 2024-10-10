@@ -19,7 +19,7 @@ export default class SetResume extends Model {
 		official: number
 	}
 
-	public async getFullSet(): Promise<TCGdexSet> {
+	public async getSet(): Promise<TCGdexSet> {
 		return (await this.sdk.set.get(this.id))!
 	}
 }

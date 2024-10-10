@@ -5,7 +5,7 @@ export default abstract class Model {
 
 	public constructor(
 		protected readonly sdk: TCGdex
-	) {}
+	) { }
 
 	/**
 	 * build a model depending on the data given

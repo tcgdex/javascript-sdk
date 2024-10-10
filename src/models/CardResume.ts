@@ -41,7 +41,7 @@ export default class CardResume extends Model {
 	 *
 	 * @return the full card if available
 	 */
-	public async getFullCard(): Promise<Card> {
+	public async getCard(): Promise<Card> {
 		return (await this.sdk.card.get(this.id))!
 	}
 }

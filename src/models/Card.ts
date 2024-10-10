@@ -188,7 +188,7 @@ export default class Card extends CardResume {
 		expanded: boolean
 	}
 
-	public async getFullCard(): Promise<Card> {
+	public override async getCard(): Promise<Card> {
 		return this
 	}
 

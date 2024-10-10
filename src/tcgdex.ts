@@ -1,8 +1,9 @@
-import { objectLoop } from '@dzeio/object-util'
 import type CacheInterface from './Psr/SimpleCache/CacheInterface'
 import LocalStorageCache from './Psr/SimpleCache/LocalStorageCache'
 import MemoryCache from './Psr/SimpleCache/MemoryCache'
+import Query from './Query'
 import Endpoint from './endpoints/Endpoint'
+import SimpleEndpoint from './endpoints/SimpleEndpoint'
 import type {
 	Card,
 	CardResume,
@@ -16,9 +17,12 @@ import type {
 } from './interfaces'
 import CardModel from './models/Card'
 import CardResumeModel from './models/CardResume'
+import SerieModel from './models/Serie'
+import SerieResume from './models/SerieResume'
 import SetModel from './models/Set'
 import SetResumeModel from './models/SetResume'
-import { detectContext, ENDPOINTS } from './utils'
+import StringEndpointModel from './models/StringEndpoint'
+import { ENDPOINTS, detectContext } from './utils'
 import { version } from './version'
 
 export default class TCGdex {
@@ -46,9 +50,28 @@ export default class TCGdex {
 
 	public readonly card = new Endpoint(this, CardModel, CardResumeModel, 'cards')
 	public readonly set = new Endpoint(this, SetModel, SetResumeModel, 'sets')
+	public readonly serie = new Endpoint(this, SerieModel, SerieResume, 'series')
+
+	public readonly type = new SimpleEndpoint(this, StringEndpointModel, 'types')
+	public readonly retreat = new SimpleEndpoint(this, StringEndpointModel, 'retreats')
+	public readonly rarity = new SimpleEndpoint(this, StringEndpointModel, 'rarities')
+	public readonly illustrator = new SimpleEndpoint(this, StringEndpointModel, 'illustrators')
+	public readonly hp = new SimpleEndpoint(this, StringEndpointModel, 'hp')
+	public readonly categorie = new SimpleEndpoint(this, StringEndpointModel, 'categories')
+	public readonly dexID = new SimpleEndpoint(this, StringEndpointModel, 'dex-ids')
+	public readonly energyType = new SimpleEndpoint(this, StringEndpointModel, 'energy-types')
+	public readonly regulationMark = new SimpleEndpoint(this, StringEndpointModel, 'regulation-marks')
+	public readonly stage = new SimpleEndpoint(this, StringEndpointModel, 'stages')
+	public readonly suffixe = new SimpleEndpoint(this, StringEndpointModel, 'suffixes')
+	public readonly trainerType = new SimpleEndpoint(this, StringEndpointModel, 'trainer-types')
+	public readonly variant = new SimpleEndpoint(this, StringEndpointModel, 'variants')
 
 	private lang: SupportedLanguages = 'en'
 	private endpointURL = 'https://api.tcgdex.net/v2'
+
+	public constructor(lang: SupportedLanguages = 'en') {
+		this.setLang(lang)
+	}
 
 	/**
 	 * @deprecated use the constructor parameter or {@link TCGdex.setLang} when in an instance
@@ -263,7 +286,7 @@ export default class TCGdex {
 	 */
 	public async fetchWithQuery<T = object>(
 		endpoint: [Endpoints, ...Array<string>],
-		query?: Record<string, string | number | boolean>
+		query?: Array<{ key: string, value: string | number | boolean }>
 	): Promise<T | undefined> {
 		if (endpoint.length === 0) {
 			throw new Error('endpoint to fetch is empty!')
@@ -280,20 +303,21 @@ export default class TCGdex {
 	 */
 	private getFullURL(
 		url: Array<string | number>,
-		searchParams?: Record<string, string | number | boolean>
-	): string{
+		searchParams?: Array<{ key: string, value: string | number | boolean }>
+	): string {
 		// Normalize path
 		let path = url.map(this.encode).join('/')
 
 		// handle the Search Params
 		if (searchParams) {
 			path += '?'
-			objectLoop(searchParams, (value, key, index) => {
-				if (index !== 0) {
+			for (let idx = 0; idx < searchParams.length; idx++) {
+				const param = searchParams[idx]
+				if (idx !== 0) {
 					path += '&'
 				}
-				path += `${this.encode(key)}=${this.encode(value)}`
-			})
+				path += `${this.encode(param.key)}=${this.encode(param.value)}`
+			}
 		}
 
 		// return with the endpoint and all the shit
@@ -356,4 +380,9 @@ export default class TCGdex {
 	}
 }
 
+
 export * from './models/Card'
+export {
+	Query
+}
+

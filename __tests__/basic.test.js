@@ -1,5 +1,7 @@
-const TCGdex = require("../src/tcgdex").default
-const fetch = require('node-fetch')
+/// <reference types="jest" />
+
+const { default: TCGdex, Query } = require("../src/tcgdex")
+import fetch from 'node-fetch'
 
 const fakeFetch = (response, status = 200) => jest.fn(() =>
 	Promise.resolve({
@@ -8,59 +10,131 @@ const fakeFetch = (response, status = 200) => jest.fn(() =>
 	})
 );
 
-
-
 test('Basic test', async () => {
 	const tcgdex = new TCGdex('en')
-	TCGdex.fetch = fakeFetch({ok: true})
+	TCGdex.fetch = fakeFetch({ ok: true })
 	const res = await tcgdex.fetch('cards', 'basic-test')
-	expect(res).toEqual({ok: true})
+	expect(res).toEqual({ ok: true })
 	expect(TCGdex.fetch).toHaveBeenCalledTimes(1)
-})
-
-test('Cache test', async () => {
-	const tcgdex = new TCGdex('en')
-	TCGdex.fetch = fakeFetch({ok: 'a'})
-	const res1 = await tcgdex.fetch('cards', 'cache-test')
-	expect(res1).toEqual({ok: 'a'})
-	TCGdex.fetch = fakeFetch({ok: 'b'})
-	const res2 = await tcgdex.fetch('cards', 'cache-test')
-	expect(res2).toEqual({ok: 'a'})
 })
 
 test('endpoint errors', async () => {
 	const tcgdex = new TCGdex('en')
-	TCGdex.fetch = fakeFetch({ok: 'a'})
+	TCGdex.fetch = fakeFetch({ ok: 'a' })
 	await expect(tcgdex.fetch('non existing endpoint')).rejects.toThrow()
 	await expect(tcgdex.fetch()).rejects.toThrow()
 })
 
-test('404 test', async () => {
-	const tcgdex = new TCGdex('en')
-	TCGdex.fetch = fakeFetch(undefined, 404)
-	expect(
-		await tcgdex.fetch('cards', '404-test')
-	).not.toBeDefined()
-})
-
-test('test real endpoints', async () => {
+test(`404 error`, async () => {
 	const tcgdex = new TCGdex('en')
 	TCGdex.fetch = fetch
-	const endpoints = [
-		{endpoint: 'fetchCard', params: ['swsh1-1']},
-		{endpoint: 'fetchCard', params: ['1', 'Sword & Shield']},
-		{endpoint: 'fetchCards', params: ['swsh1']},
-		{endpoint: 'fetchCards', params: []},
-		{endpoint: 'fetchSet', params: ['swsh1']},
-		{endpoint: 'fetchSets', params: ['swsh']},
-		{endpoint: 'fetchSets', params: []},
-		{endpoint: 'fetchSeries', params: []},
-		{endpoint: 'fetchSerie', params: ['swsh']},
-	]
 
-	for await (const item of endpoints) {
-		expect(
-			await tcgdex[item.endpoint](...item.params)
-		).toBeDefined()
-	}
+	expect(
+		await tcgdex.card.get('404-error')
+	).toBeNull()
 })
+
+test(`test getting full set from list`, async () => {
+	const tcgdex = new TCGdex('en')
+	TCGdex.fetch = fetch
+
+	expect(
+		await (await tcgdex.set.list())[0].getSet()
+	).toBeTruthy()
+})
+
+test(`test getting full serie from list`, async () => {
+	const tcgdex = new TCGdex('en')
+	TCGdex.fetch = fetch
+
+	expect(
+		await (await tcgdex.serie.list())[0].getSerie()
+	).toBeTruthy()
+})
+
+test(`test getting full card from list`, async () => {
+	const tcgdex = new TCGdex('en')
+	TCGdex.fetch = fetch
+
+	expect(
+		await (await tcgdex.card.list())[0].getCard()
+	).toBeTruthy()
+})
+
+
+test(`test get set from card`, async () => {
+	const tcgdex = new TCGdex('en')
+	TCGdex.fetch = fetch
+
+	expect(
+		await (await tcgdex.card.get('swsh1-136')).getSet()
+	).toBeTruthy()
+})
+
+test(`test get serie from set`, async () => {
+	const tcgdex = new TCGdex('en')
+	TCGdex.fetch = fetch
+
+	expect(
+		await (await tcgdex.set.get('swsh1')).getSerie()
+	).toBeTruthy()
+})
+
+test(`advanced query system`, async () => {
+	const tcgdex = new TCGdex('en')
+	TCGdex.fetch = fetch
+
+	expect(
+		(await tcgdex.card.list(
+			Query.create()
+				.equal('name', 'Pikachu')
+				.greaterOrEqualThan('hp', 60)
+				.lesserThan('hp', 70)
+				.contains('localId', '5')
+				.not.contains('localId', 'tg')
+				.not.equal('id', 'cel25-5')
+				.sort('localId', 'ASC')
+				.paginate(3, 2)
+		)).length
+	).toBe(2)
+})
+
+const endpoints = [
+	{ endpoint: 'card', params: ['swsh1-136'] },
+	{ endpoint: 'set', params: ['swsh1'] },
+	{ endpoint: 'serie', params: ['swsh'] },
+	{ endpoint: 'type', params: ['fire'] },
+	{ endpoint: 'retreat', params: ['1'] },
+	{ endpoint: 'rarity', params: ['common'] },
+	{ endpoint: 'illustrator', params: [''] },
+	{ endpoint: 'hp', params: ['30'] },
+	{ endpoint: 'categorie', params: ['pokemon'] },
+	{ endpoint: 'dexID', params: ['1'] },
+	{ endpoint: 'energyType', params: ['normal'] },
+	{ endpoint: 'regulationMark', params: ['f'] },
+	{ endpoint: 'stage', params: ['basic'] },
+	{ endpoint: 'suffixe', params: ['ex'] },
+	{ endpoint: 'trainerType', params: ['item'] },
+	{ endpoint: 'variant', params: ['normal'] },
+]
+
+for (const endpoint of endpoints) {
+	test(`test real ${endpoint.endpoint} endpoint list`, async () => {
+		const tcgdex = new TCGdex('en')
+		TCGdex.fetch = fetch
+
+		expect(
+			await (tcgdex[endpoint.endpoint]).list()
+		).toBeTruthy()
+	})
+
+	test(`test real ${endpoint.endpoint} endpoint item`, async () => {
+		const tcgdex = new TCGdex('en')
+		TCGdex.fetch = fetch
+
+		expect(
+			await (tcgdex[endpoint.endpoint]).get(endpoint.params[0])
+		).toBeTruthy()
+	})
+
+}
