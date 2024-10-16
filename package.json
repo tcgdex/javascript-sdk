@@ -58,7 +58,7 @@
 	},
 	"scripts": {
 		"prebuild": "node scripts/export-version-number.js",
-		"build": "rm -r dist && tsup ./src/tcgdex.node.ts --format cjs,esm --dts --clean && tsup ./src/tcgdex.browser.ts --format iife --global-name TCGdex --sourcemap",
+		"build": "rm -rf dist && tsup ./src/tcgdex.node.ts --format cjs,esm --dts --clean && tsup ./src/tcgdex.browser.ts --format iife --global-name TCGdex --sourcemap",
 		"prepublishOnly": "npm run build",
 		"lint": "eslint",
 		"test": "jest --coverage"
