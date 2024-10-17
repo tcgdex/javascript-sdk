@@ -16,5 +16,5 @@ export const ENDPOINTS: Array<Endpoints> = [
 	'cards', 'categories', 'dex-ids', 'energy-types',
 	'hp', 'illustrators', 'rarities', 'regulation-marks',
 	'retreats', 'series', 'sets', 'stages', 'suffixes',
-	'trainer-types', 'types', 'variants'
+	'trainer-types', 'types', 'variants', 'random'
 ] as const

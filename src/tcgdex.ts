@@ -17,6 +17,7 @@ import type {
 } from './interfaces'
 import CardModel from './models/Card'
 import CardResumeModel from './models/CardResume'
+import Model from './models/Model'
 import SerieModel from './models/Serie'
 import SerieResume from './models/SerieResume'
 import SetModel from './models/Set'
@@ -47,6 +48,22 @@ export default class TCGdex {
 	 * the default cache TTL, only subsequent requests will have their ttl changed
 	 */
 	public cacheTTL = 60 * 60
+
+	// random card/set/serie endpoints
+	public readonly random = {
+		card: async (): Promise<CardModel> => {
+			const res = await this.fetch('random', 'card')
+			return Model.build(new CardModel(this), res)
+		},
+		set: async (): Promise<SetModel> => {
+			const res = await this.fetch('random', 'set')
+			return Model.build(new SetModel(this), res)
+		},
+		serie: async (): Promise<SerieModel> => {
+			const res = await this.fetch('random', 'serie')
+			return Model.build(new SerieModel(this), res)
+		}
+	}
 
 	public readonly card = new Endpoint(this, CardModel, CardResumeModel, 'cards')
 	public readonly set = new Endpoint(this, SetModel, SetResumeModel, 'sets')
@@ -227,6 +244,13 @@ export default class TCGdex {
 	public async fetch(...endpoint: ['sets', string]): Promise<TCGdexSet | undefined>
 
 	/**
+	 * Fetch a random element
+	 * @param endpoint_0 'random'
+	 * @param endpoint_1 {'set' | 'card' | 'serie'} the type of random element you want to get
+	 */
+	public async fetch(...endpoint: ['random', 'set' | 'card' | 'serie']): Promise<Card | TCGdexSet | Serie | undefined>
+
+	/**
 	 * Fetch every sets
 	 * @param endpoint_0 'sets'
 	 */
@@ -310,14 +334,7 @@ export default class TCGdex {
 
 		// handle the Search Params
 		if (searchParams) {
-			path += '?'
-			for (let idx = 0; idx < searchParams.length; idx++) {
-				const param = searchParams[idx]
-				if (idx !== 0) {
-					path += '&'
-				}
-				path += `${this.encode(param.key)}=${this.encode(param.value)}`
-			}
+			path += '?' + searchParams.map((it) => `${this.encode(it.key)}=${this.encode(it.value)}`).join('&')
 		}
 
 		// return with the endpoint and all the shit
