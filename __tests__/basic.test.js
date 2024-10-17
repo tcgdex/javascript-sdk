@@ -138,3 +138,13 @@ for (const endpoint of endpoints) {
 	})
 
 }
+
+
+test(`random card/set/serie`, async () => {
+	const tcgdex = new TCGdex('en')
+	TCGdex.fetch = fetch
+
+	expect((await tcgdex.random.card())).toBeTruthy()
+	expect((await tcgdex.random.set())).toBeTruthy()
+	expect((await tcgdex.random.serie())).toBeTruthy()
+})
