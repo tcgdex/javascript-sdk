@@ -1,6 +1,6 @@
-import type CacheInterface from './Psr/SimpleCache/CacheInterface'
-import LocalStorageCache from './Psr/SimpleCache/LocalStorageCache'
-import MemoryCache from './Psr/SimpleCache/MemoryCache'
+import type CacheInterface from '@cachex/core'
+import LocalStorageCache from '@cachex/web-storage'
+import MemoryCache from '@cachex/memory'
 import Query from './Query'
 import Endpoint from './endpoints/Endpoint'
 import SimpleEndpoint from './endpoints/SimpleEndpoint'
@@ -402,4 +402,3 @@ export * from './models/Card'
 export {
 	Query
 }
-
