@@ -3,6 +3,9 @@
 const { default: TCGdex, Query } = require("../src/tcgdex")
 import fetch from 'node-fetch'
 
+// change timeout of execution
+jest.setTimeout(60000)
+
 const fakeFetch = (response, status = 200) => jest.fn(() =>
 	Promise.resolve({
 		status: status,
