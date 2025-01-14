@@ -44,10 +44,12 @@
 		"@types/node-fetch": "^2",
 		"@typescript-eslint/eslint-plugin": "^5",
 		"@typescript-eslint/parser": "^5",
+		"@vitest/coverage-v8": "^2.1.8",
 		"eslint": "^8",
 		"jest": "^29",
 		"tsup": "^7",
-		"typescript": "^5"
+		"typescript": "^5",
+		"vitest": "^2"
 	},
 	"engines": {
 		"node": ">=12"
@@ -63,7 +65,7 @@
 		"build": "rm -rf dist && tsup ./src/tcgdex.node.ts --format cjs,esm --dts --clean && tsup ./src/tcgdex.browser.ts --format iife --global-name TCGdex --sourcemap",
 		"prepublishOnly": "npm run build",
 		"lint": "eslint",
-		"test": "jest --coverage"
+		"test": "vitest run --coverage"
 	},
 	"files": [
 		"dist"

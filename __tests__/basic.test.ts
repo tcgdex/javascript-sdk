@@ -1,21 +1,19 @@
-/// <reference types="jest" />
-
-const { default: TCGdex, Query } = require("../src/tcgdex")
-import fetch from 'node-fetch'
+import { expect, test, vi } from 'vitest'
+import TCGdex, { Query } from '../src/tcgdex'
 
 // change timeout of execution
-jest.setTimeout(120000)
+vi.setConfig({ testTimeout: 120000 })
 
-const fakeFetch = (response, status = 200) => jest.fn(() =>
+const fakeFetch = (response: any, status = 200) => vi.fn(() =>
 	Promise.resolve({
 		status: status,
-		json: () => Promise.resolve(response),
+		json: () => Promise.resolve(response)
 	})
-);
+)
 
 test('Basic test', async () => {
 	const tcgdex = new TCGdex('en')
-	TCGdex.fetch = fakeFetch({ ok: true })
+	TCGdex.fetch = fakeFetch({ ok: true }) as any
 	const res = await tcgdex.fetch('cards', 'basic-test')
 	expect(res).toEqual({ ok: true })
 	expect(TCGdex.fetch).toHaveBeenCalledTimes(1)
@@ -23,7 +21,7 @@ test('Basic test', async () => {
 
 test('endpoint errors', async () => {
 	const tcgdex = new TCGdex('en')
-	TCGdex.fetch = fakeFetch({ ok: 'a' })
+	TCGdex.fetch = fakeFetch({ ok: 'a' }) as any
 	await expect(tcgdex.fetch('non existing endpoint')).rejects.toThrow()
 	await expect(tcgdex.fetch()).rejects.toThrow()
 })
@@ -70,7 +68,7 @@ test(`test get set from card`, async () => {
 	TCGdex.fetch = fetch
 
 	expect(
-		await (await tcgdex.card.get('swsh1-136')).getSet()
+		await (await tcgdex.card.get('swsh1-136'))!.getSet()
 	).toBeTruthy()
 })
 
@@ -79,7 +77,7 @@ test(`test get serie from set`, async () => {
 	TCGdex.fetch = fetch
 
 	expect(
-		await (await tcgdex.set.get('swsh1')).getSerie()
+		await (await tcgdex.set.get('swsh1'))!.getSerie()
 	).toBeTruthy()
 })
 
