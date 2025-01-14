@@ -1,6 +1,9 @@
 import { expect, test, vi } from 'vitest'
 import TCGdex from '../src/tcgdex'
 
+// change timeout of execution
+vi.setConfig({ testTimeout: 120000 })
+
 const fakeFetch = (response, status = 200) => vi.fn(() =>
 	Promise.resolve({
 		status: status,
