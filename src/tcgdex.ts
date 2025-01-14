@@ -1,6 +1,6 @@
 import type CacheInterface from '@cachex/core'
-import LocalStorageCache from '@cachex/web-storage'
 import MemoryCache from '@cachex/memory'
+import LocalStorageCache from '@cachex/web-storage'
 import Query from './Query'
 import Endpoint from './endpoints/Endpoint'
 import SimpleEndpoint from './endpoints/SimpleEndpoint'
@@ -372,6 +372,7 @@ export default class TCGdex {
 
 		// parse, put to cache and return
 		const json = await resp.json()
+
 		this.cache.set(path, json, this.cacheTTL)
 		return json as T
 	}
@@ -397,8 +398,13 @@ export default class TCGdex {
 	}
 }
 
+// export the old interfaces
+export type * from './interfaces.d.ts'
 
-export * from './models/Card'
+// export the new models items and the Query
 export {
-	Query
+	CardModel, CardResumeModel, Endpoint, Model, Query, SerieModel,
+	SerieResume as SerieResumeModel,
+	SetModel,
+	SetResumeModel, SimpleEndpoint
 }

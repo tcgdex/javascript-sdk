@@ -12,7 +12,7 @@ export function detectContext(): 'browser' | 'server' {
 	}
 }
 
-export const ENDPOINTS: Array<Endpoints> = [
+export const ENDPOINTS: ReadonlyArray<Endpoints> = [
 	'cards', 'categories', 'dex-ids', 'energy-types',
 	'hp', 'illustrators', 'rarities', 'regulation-marks',
 	'retreats', 'series', 'sets', 'stages', 'suffixes',
