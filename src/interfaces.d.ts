@@ -22,9 +22,18 @@ interface variants {
 	firstEdition?: boolean
 }
 
+interface booster {
+	id: string
+	name: string
+	logo?: string
+	artwork_front?: string
+	artwork_back?: string	
+}
+
 export type SetList = Array<SetResume>
 export type SerieList = Array<SerieResume>
 export type CardList = Array<CardResume>
+export type BoosterList = Array<booster>
 
 export interface SetResume {
 	id: string
@@ -105,6 +114,8 @@ export interface Set extends SetResume {
 	}
 
 	cards: CardList
+
+	boosters?: BoosterList
 }
 
 export interface CardResume {
@@ -302,6 +313,8 @@ export interface Card<SetType extends SetResume = SetResume> extends CardResume 
 		 */
 		expanded: boolean
 	}
+
+	boosters?: BoosterList
 }
 
 export type StringEndpointList = Array<string>
