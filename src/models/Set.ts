@@ -1,7 +1,7 @@
 import { objectLoop } from '@dzeio/object-util'
 import CardResume from './CardResume'
 import Model from './Model'
-import type { Variants } from './Other'
+import type { Booster, Variants } from './Other'
 import type SerieResume from './SerieResume'
 
 // biome-ignore lint/suspicious/noShadowRestrictedNames: <explanation>
@@ -69,6 +69,8 @@ export default class Set extends Model {
 	}
 
 	public cards!: Array<CardResume>
+
+	public boosters?: Array<Booster>
 
 	public async getSerie() {
 		return this.sdk.serie.get(this.serie.id)

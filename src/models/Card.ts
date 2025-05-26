@@ -1,5 +1,5 @@
 import CardResume from './CardResume'
-import type { Variants } from './Other'
+import type { Booster, Variants } from './Other'
 import type TCGdexSet from './Set'
 import type SetResume from './SetResume'
 
@@ -187,6 +187,8 @@ export default class Card extends CardResume {
 		 */
 		expanded: boolean
 	}
+
+	public boosters?: Array<Booster>
 
 	public override async getCard(): Promise<Card> {
 		return this
