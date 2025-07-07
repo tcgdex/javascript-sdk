@@ -326,19 +326,22 @@ export default class TCGdex {
 	 * format the final URL
 	 */
 	private getFullURL(
-		url: Array<string | number>,
+		path: Array<string | number>,
 		searchParams?: Array<{ key: string, value: string | number | boolean }>
 	): string {
-		// Normalize path
-		let path = url.map(this.encode).join('/')
+		// build base path
+		const url = new URL(`${this.getEndpoint()}/${this.getLang()}`)
+
+		// set url path
+		url.pathname = `${url.pathname}/${path.join('/')}`
 
 		// handle the Search Params
-		if (searchParams) {
-			path += '?' + searchParams.map((it) => `${this.encode(it.key)}=${this.encode(it.value)}`).join('&')
+		for (const param of searchParams ?? []) {
+			url.searchParams.append(param.key, param.value.toString())
 		}
 
 		// return with the endpoint and all the shit
-		return `${this.getEndpoint()}/${this.getLang()}/${path}`
+		return url.toString()
 	}
 
 	private async actualFetch<T = object>(path: string): Promise<T | undefined> {
@@ -375,26 +378,6 @@ export default class TCGdex {
 
 		this.cache.set(path, json, this.cacheTTL)
 		return json as T
-	}
-
-	/**
-	 * encode a string to be used in an url
-	 * @param str the string to encode to URL
-	 * @returns the encoded string
-	 */
-	private encode(str: string | number | boolean): string {
-		return encodeURI(
-			str
-				// Transform numbers to string
-				.toString()
-				// replace this special character with an escaped one
-				.replace('?', '%3F')
-				// normalize the string
-				.normalize('NFC')
-				// remove some special chars
-				// eslint-disable-next-line no-misleading-character-class
-				.replace(/["'\u0300-\u036f]/gu, '')
-		)
 	}
 }
 
