@@ -100,46 +100,47 @@ test(`advanced query system`, async () => {
 	).toBe(2)
 })
 
-// TODO: re-enable after server answer faster
-// const endpoints = [
-// 	{ endpoint: 'card', params: ['swsh1-136'] },
-// 	{ endpoint: 'set', params: ['swsh1'] },
-// 	{ endpoint: 'serie', params: ['swsh'] },
-// 	{ endpoint: 'type', params: ['fire'] },
-// 	{ endpoint: 'retreat', params: ['1'] },
-// 	{ endpoint: 'rarity', params: ['common'] },
-// 	{ endpoint: 'illustrator', params: [''] },
-// 	{ endpoint: 'hp', params: ['30'] },
-// 	{ endpoint: 'categorie', params: ['energy'] },
-// 	{ endpoint: 'dexID', params: ['1'] },
-// 	{ endpoint: 'energyType', params: ['normal'] },
-// 	{ endpoint: 'regulationMark', params: ['f'] },
-// 	{ endpoint: 'stage', params: ['basic'] },
-// 	{ endpoint: 'suffixe', params: ['ex'] },
-// 	{ endpoint: 'trainerType', params: ['item'] },
-// 	// { endpoint: 'variant', params: ['normal'] },
-// ]
+const endpoints = [
+	{ endpoint: 'card', params: ['swsh1-136'] },
+	{ endpoint: 'set', params: ['swsh1'] },
+	{ endpoint: 'serie', params: ['swsh'] },
+	// TODO: re-enable after server answer faster
+	// { endpoint: 'type', params: ['fire'] },
+	{ endpoint: 'retreat', params: ['1'] },
+	{ endpoint: 'rarity', params: ['common'] },
+	{ endpoint: 'illustrator', params: [''] },
+	{ endpoint: 'hp', params: ['30'] },
+	{ endpoint: 'categorie', params: ['energy'] },
+	{ endpoint: 'dexID', params: ['1'] },
+	{ endpoint: 'energyType', params: ['normal'] },
+	{ endpoint: 'regulationMark', params: ['f'] },
+	{ endpoint: 'stage', params: ['basic'] },
+	{ endpoint: 'suffixe', params: ['ex'] },
+	{ endpoint: 'trainerType', params: ['item'] },
+	// TODO: re-enable after server answer faster
+	// { endpoint: 'variant', params: ['normal'] },
+]
 
-// for (const endpoint of endpoints) {
-// 	test(`test real ${endpoint.endpoint} endpoint list`, async () => {
-// 		const tcgdex = new TCGdex('en')
-// 		TCGdex.fetch = fetch
+for (const endpoint of endpoints) {
+	test(`test real ${endpoint.endpoint} endpoint list`, async () => {
+		const tcgdex = new TCGdex('en')
+		TCGdex.fetch = fetch
 
-// 		expect(
-// 			await (tcgdex[endpoint.endpoint]).list()
-// 		).toBeTruthy()
-// 	})
+		expect(
+			await (tcgdex[endpoint.endpoint]).list()
+		).toBeTruthy()
+	})
 
-// 	test(`test real ${endpoint.endpoint} endpoint item`, async () => {
-// 		const tcgdex = new TCGdex('en')
-// 		TCGdex.fetch = fetch
+	test(`test real ${endpoint.endpoint} endpoint item`, async () => {
+		const tcgdex = new TCGdex('en')
+		TCGdex.fetch = fetch
 
-// 		expect(
-// 			await (tcgdex[endpoint.endpoint]).get(endpoint.params[0])
-// 		).toBeTruthy()
-// 	})
+		expect(
+			await (tcgdex[endpoint.endpoint]).get(endpoint.params[0])
+		).toBeTruthy()
+	})
 
-// }
+}
 
 
 test(`random card/set/serie`, async () => {
