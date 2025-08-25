@@ -4,7 +4,7 @@
 	"main": "./dist/tcgdex.js",
 	"module": "./dist/tcgdex.mjs",
 	"types": "./dist/tcgdex.d.ts",
-	"browser": "./dist/tcgdex.global.js",
+	"browser": "./dist/tcgdex.browser.global.js",
 	"exports": {
 		".": {
 			"require": {
@@ -61,7 +61,7 @@
 	},
 	"scripts": {
 		"prebuild": "node scripts/export-version-number.js",
-		"build": "rm -rf dist && tsup ./src/tcgdex.ts --format cjs,esm,iife --global-name TCGdex --sourcemap --dts --clean",
+		"build": "rm -rf dist && tsup ./src/tcgdex.ts --format cjs,esm --dts --clean && tsup ./src/tcgdex.browser.ts --format iife --global-name TCGdex --sourcemap",
 		"prepublishOnly": "npm run build",
 		"lint": "eslint",
 		"test": "vitest run --coverage"

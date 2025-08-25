@@ -109,7 +109,7 @@ const endpoints = [
 	{ endpoint: 'rarity', params: ['common'] },
 	{ endpoint: 'illustrator', params: [''] },
 	{ endpoint: 'hp', params: ['30'] },
-	{ endpoint: 'categorie', params: ['pokemon'] },
+	{ endpoint: 'categorie', params: ['energy'] },
 	{ endpoint: 'dexID', params: ['1'] },
 	{ endpoint: 'energyType', params: ['normal'] },
 	{ endpoint: 'regulationMark', params: ['f'] },
