@@ -1,7 +1,7 @@
 import type { Endpoints } from './interfaces'
 
 /**
- * detect the current running context ofthe program
+ * detect the current running context of the program
  */
 export function detectContext(): 'browser' | 'server' {
 	try {

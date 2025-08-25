@@ -1,5 +1,3 @@
-import TCGdex from './tcgdex'
+import TCGdex from "./tcgdex"
 
-TCGdex.fetch = window.fetch
-
-export default TCGdex
+module.exports = TCGdex

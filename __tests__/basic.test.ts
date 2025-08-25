@@ -104,19 +104,21 @@ const endpoints = [
 	{ endpoint: 'card', params: ['swsh1-136'] },
 	{ endpoint: 'set', params: ['swsh1'] },
 	{ endpoint: 'serie', params: ['swsh'] },
-	{ endpoint: 'type', params: ['fire'] },
+	// TODO: re-enable after server answer faster
+	// { endpoint: 'type', params: ['fire'] },
 	{ endpoint: 'retreat', params: ['1'] },
 	{ endpoint: 'rarity', params: ['common'] },
 	{ endpoint: 'illustrator', params: [''] },
 	{ endpoint: 'hp', params: ['30'] },
-	{ endpoint: 'categorie', params: ['pokemon'] },
+	{ endpoint: 'categorie', params: ['energy'] },
 	{ endpoint: 'dexID', params: ['1'] },
 	{ endpoint: 'energyType', params: ['normal'] },
 	{ endpoint: 'regulationMark', params: ['f'] },
 	{ endpoint: 'stage', params: ['basic'] },
 	{ endpoint: 'suffixe', params: ['ex'] },
 	{ endpoint: 'trainerType', params: ['item'] },
-	{ endpoint: 'variant', params: ['normal'] },
+	// TODO: re-enable after server answer faster
+	// { endpoint: 'variant', params: ['normal'] },
 ]
 
 for (const endpoint of endpoints) {

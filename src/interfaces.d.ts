@@ -27,7 +27,7 @@ interface booster {
 	name: string
 	logo?: string
 	artwork_front?: string
-	artwork_back?: string	
+	artwork_back?: string
 }
 
 export type SetList = Array<SetResume>

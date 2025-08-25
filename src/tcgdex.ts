@@ -31,7 +31,11 @@ export default class TCGdex {
 	/**
 	 * How the remote data is going to be fetched
 	 */
-	public static fetch: typeof fetch = fetch
+	public static fetch: typeof fetch =
+		detectContext() === 'browser'
+			// fixe: TypeError: 'fetch' called on an object that does not implement interface Window.
+			? (...params: Parameters<typeof fetch>) => window.fetch(...params)
+			: fetch
 
 	/**
 	 * @deprecated to change the lang use {@link TCGdex.getLang} and {@link TCGdex.setLang}
@@ -42,7 +46,9 @@ export default class TCGdex {
 	 * the previously hidden caching system used by TCGdex to not kill the API
 	 */
 	public cache: CacheInterface =
-		detectContext() === 'browser' ? new LocalStorageCache('tcgdex-cache') : new MemoryCache()
+		detectContext() === 'browser'
+			? new LocalStorageCache('tcgdex-cache')
+			: new MemoryCache()
 
 	/**
 	 * the default cache TTL, only subsequent requests will have their ttl changed
