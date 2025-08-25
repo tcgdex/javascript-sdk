@@ -116,7 +116,8 @@ const endpoints = [
 	{ endpoint: 'stage', params: ['basic'] },
 	{ endpoint: 'suffixe', params: ['ex'] },
 	{ endpoint: 'trainerType', params: ['item'] },
-	{ endpoint: 'variant', params: ['normal'] },
+	// TODO: re-enable after server answer faster
+	// { endpoint: 'variant', params: ['normal'] },
 ]
 
 for (const endpoint of endpoints) {
