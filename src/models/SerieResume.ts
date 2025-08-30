@@ -6,7 +6,7 @@ export default class SerieResume extends Model {
 	public id!: string
 	public name!: string
 	public logo?: string
-
+	public releaseDate?: string
 	/**
 	 * the the Card Image full URL
 	 *

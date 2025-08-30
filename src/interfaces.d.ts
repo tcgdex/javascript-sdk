@@ -12,7 +12,10 @@ export interface SerieResume {
 }
 
 export interface Serie extends SerieResume {
+	releaseDate?: string
 	sets: SetList
+	firstSet: SetResume
+	lastSet: SetResume
 }
 
 interface variants {
