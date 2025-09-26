@@ -6,6 +6,11 @@ export default class SetResume extends Model {
 	public name!: string
 	public logo?: string
 	public symbol?: string
+	public abbreviation?: {
+		official?: string
+		localized?: string
+	}
+
 	public cardCount!: {
 
 		/**
