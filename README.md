@@ -47,7 +47,7 @@ HTML pages:
 <script src="https://cdn.jsdelivr.net/npm/@tcgdex/sdk@2/dist/tcgdex.browser.js"></script>
 ```
 
-You cna also download the script from [JSDelivr](https://cdn.jsdelivr.net/npm/@tcgdex/sdk@2/dist/tcgdex.browser.js) by right clicking the link and selecting save link as.
+You can also download the script from [JSDelivr](https://cdn.jsdelivr.net/npm/@tcgdex/sdk@2/dist/tcgdex.browser.js) by right clicking the link and selecting save link as.
 
 **In Node.js**
 
