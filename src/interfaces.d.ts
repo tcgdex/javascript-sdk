@@ -35,11 +35,17 @@ export type SerieList = Array<SerieResume>
 export type CardList = Array<CardResume>
 export type BoosterList = Array<booster>
 
+export interface Abbreviation {
+	official?: string
+	localized?: string
+}
+
 export interface SetResume {
 	id: string
 	name: string
 	logo?: string
 	symbol?: string
+	abbreviation?: Abbreviation
 	cardCount: {
 
 		/**
