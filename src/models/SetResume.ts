@@ -1,11 +1,16 @@
 import Model from './Model'
 import type TCGdexSet from './Set'
+import type SerieResume from './SerieResume'
+import type { Abbreviation } from '../interfaces'
 
 export default class SetResume extends Model {
 	public id!: string
 	public name!: string
 	public logo?: string
 	public symbol?: string
+	public abbreviation?: Abbreviation
+	public serie?: SerieResume
+	public releaseDate?: string
 	public cardCount!: {
 
 		/**
