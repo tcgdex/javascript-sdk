@@ -44,10 +44,10 @@ To use the SDK in the browser, simply add the following script tag to your
 HTML pages:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@tcgdex/sdk@2/dist/tcgdex.browser.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tcgdex/sdk@2/dist/tcgdex.browser.global.min.js"></script>
 ```
 
-You can also download the script from [JSDelivr](https://cdn.jsdelivr.net/npm/@tcgdex/sdk@2/dist/tcgdex.browser.js) by right clicking the link and selecting save link as.
+You can also download the script from [JSDelivr](https://cdn.jsdelivr.net/npm/@tcgdex/sdk@2/dist/tcgdex.browser.global.min.js) by right clicking the link and selecting save link as.
 
 **In Node.js**
 
