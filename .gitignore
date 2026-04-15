@@ -2,6 +2,7 @@
 node_modules
 test.ts
 coverage
+.idea
 
 # Dist files
 dist
