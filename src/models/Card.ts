@@ -1,5 +1,6 @@
+import { objectLoop } from '@dzeio/object-util'
 import CardResume from './CardResume'
-import type { Booster, Variants } from './Other'
+import type { Booster, Variants, VariantsDetailed } from './Other'
 import type TCGdexSet from './Set'
 import type SetResume from './SetResume'
 
@@ -33,8 +34,14 @@ export default class Card extends CardResume {
 
 	/**
 	 * Card Variants (Override Set Variants)
+	 * @deprecated Use `variantsDetailed` when possible
 	 */
 	public variants?: Variants
+
+	/**
+	 * A second generation variants system that will replace the previous one at [variants] in v3
+	 */
+	public variantsDetailed?: Array<VariantsDetailed>
 
 	/**
 	 * Card Set
@@ -196,5 +203,14 @@ export default class Card extends CardResume {
 
 	public async getSet(): Promise<TCGdexSet> {
 		return (await this.sdk.set.get(this.set.id))!
+	}
+
+	protected override fill(obj: object): void {
+		objectLoop(obj, (value, key: string) => {
+			if (key === 'variants_detailed') {
+				key = 'variantsDetailed'
+			}
+			(this as any)[key] = value
+		})
 	}
 }

@@ -151,3 +151,10 @@ test(`random card/set/serie`, async () => {
 	expect((await tcgdex.random.set())).toBeTruthy()
 	expect((await tcgdex.random.serie())).toBeTruthy()
 })
+
+test(`Variant Detailed`, async () => {
+	const tcgdex = new TCGdex('en')
+	TCGdex.fetch = fetch
+
+	expect((await tcgdex.card.get('me02-001'))?.variantsDetailed?.[0].type).toBeTruthy()
+})
