@@ -1,6 +1,6 @@
 {
 	"name": "@tcgdex/sdk",
-	"version": "2.8.0",
+	"version": "2.9.0",
 	"main": "./dist/tcgdex.js",
 	"module": "./dist/tcgdex.mjs",
 	"types": "./dist/tcgdex.d.ts",
