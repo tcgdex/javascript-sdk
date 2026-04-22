@@ -1,5 +1,5 @@
 import CardResume from './CardResume'
-import type { Booster, Variants } from './Other'
+import type { Booster, variant_detailed, variants } from './Other'
 import type TCGdexSet from './Set'
 import type SetResume from './SetResume'
 
@@ -31,10 +31,10 @@ export default class Card extends CardResume {
 	 */
 	public category!: string
 
-	/**
+/**
 	 * Card Variants (Override Set Variants)
 	 */
-	public variants?: Variants
+	variants?: variants | Array<variant_detailed>
 
 	/**
 	 * Card Set
