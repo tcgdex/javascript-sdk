@@ -7,6 +7,8 @@ on:
   # Run on any pull request
   pull_request:
 
+permissions:
+  contents: read
 
 jobs:
   build:
