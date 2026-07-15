@@ -6,7 +6,6 @@ export interface Variants {
 }
 
 export interface Booster {
-
 	id: string
 	name: string
 	logo?: string
@@ -61,14 +60,63 @@ export interface VariantsDetailed {
 	 */
 	foil?: string
 	/**
-	 * IDs from third part websites
+	 * pricing data from third party websites
 	 */
-	thirdParty?: {
-		cardmarket?: number
-		tcgplayer?: number
-	}
+	pricing?: Pricing;
 	/**
 	 * A unique ID defining this variant
 	 */
 	variantId: string
+}
+
+export interface TcgplayerVariantPricing {
+	productId: number;
+	lowPrice: number;
+	midPrice: number;
+	highPrice: number;
+	marketPrice: number;
+	directLowPrice: number;
+}
+
+const TCGPLAYER_VARIANTS = [
+	'normal',
+	'holofoil',
+	'reverse-holofoil',
+	'1st-edition',
+	'1st-edition-holofoil',
+	'unlimited',
+	'unlimited-holofoil',
+] as const;
+
+type TcgplayerVariantKey = typeof TCGPLAYER_VARIANTS[number];
+
+/**
+ * Market pricing information from multiple sources
+ */
+export interface Pricing {
+	cardmarket?: {
+		idProduct?: number;
+		updated?: string;
+		unit?: string;
+		avg?: number;
+		low?: number;
+		trend?: number;
+		avg1?: number;
+		avg7?: number;
+		avg30?: number;
+		'avg-holo'?: number;
+		'low-holo'?: number;
+		'trend-holo'?: number;
+		'avg1-holo'?: number;
+		'avg7-holo'?: number;
+		'avg30-holo'?: number;
+	}
+	tcgplayer?: {
+		updated: string;
+		unit: string;
+	} & {
+		[K in TcgplayerVariantKey]?: TcgplayerVariantPricing;
+	} & {
+		[variant: string]: TcgplayerVariantPricing | undefined;
+	}
 }

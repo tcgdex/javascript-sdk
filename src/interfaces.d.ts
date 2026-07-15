@@ -1,3 +1,5 @@
+import type { Pricing } from "./models/Other"
+
 export type SupportedLanguages = 'en' | 'fr' | 'es' | 'es-mx' | 'it' |
 	'pt' | 'pt-br' | 'de' | 'nl' | 'pl' | 'ru' |
 	'ja' | 'ko' | 'zh-tw' | 'id' | 'th' | 'zh-cn'
@@ -315,6 +317,8 @@ export interface Card<SetType extends SetResume = SetResume> extends CardResume 
 		 */
 		expanded: boolean
 	}
+
+  pricing?: Pricing;
 
 	boosters?: BoosterList
 }

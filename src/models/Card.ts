@@ -1,6 +1,6 @@
 import { objectLoop } from '@dzeio/object-util'
 import CardResume from './CardResume'
-import type { Booster, Variants, VariantsDetailed } from './Other'
+import type { Booster, Pricing, Variants, VariantsDetailed } from './Other'
 import type TCGdexSet from './Set'
 import type SetResume from './SetResume'
 
@@ -194,6 +194,14 @@ export default class Card extends CardResume {
 		 */
 		expanded: boolean
 	}
+
+  /**
+   * Card pricing object which ingests pricing based off tcgplayer and cardmarket
+   * 
+   * Note: Not availible for all cards.  
+   */
+
+  public pricing?: Pricing;
 
 	public boosters?: Array<Booster>
 

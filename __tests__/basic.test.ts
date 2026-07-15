@@ -158,3 +158,15 @@ test(`Variant Detailed`, async () => {
 
 	expect((await tcgdex.card.get('me02-001'))?.variantsDetailed?.[0].type).toBeTruthy()
 })
+
+test(`Variant Pricing`, async () => {
+	const tcgdex = new TCGdex('en')
+	TCGdex.fetch = fetch
+	const card = await tcgdex.card.get('me02-001')
+	// for backwards compatibility until V3
+	expect(card?.pricing).toBeTruthy()
+	const normalVariant = card?.variantsDetailed?.find(v => v.type === 'normal')
+	expect(normalVariant?.pricing?.cardmarket).toBeTruthy()
+	expect(normalVariant?.pricing?.tcgplayer).toBeTruthy()
+})
+

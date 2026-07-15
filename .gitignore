@@ -6,3 +6,5 @@ coverage
 # Dist files
 dist
 src/version.js
+
+.DS_Store
